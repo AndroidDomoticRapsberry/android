@@ -31,8 +31,6 @@ class PlaceholderFragment extends Fragment {
 
 	ListView listView;
 
-	Button mybutton;
-
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
@@ -55,28 +53,31 @@ class PlaceholderFragment extends Fragment {
 		textView1.setText("Editar");
 		if(position == 1){
 			listView = (ListView) view.findViewById(R.id.listView1);
+//			Button b = (Button) view.findViewById(R.id.Button03);
+			//Button b2 = (Button) view.findViewById(R.id.Button03);
+			
 			List<ScenesController> listScenes = new ArrayList<ScenesController>();
 			listScenes.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Luces"));
+					BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Luces", "Luces")); 
+			
 			listScenes.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.persiana), "Persianas"));
+					BitmapFactory.decodeResource(getResources(), R.drawable.persiana), "Persianas", "Persianas")); //b.setTag("Persianas");
 			listScenes.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.termostato), "Termostato"));
+					BitmapFactory.decodeResource(getResources(), R.drawable.termostato), "Termostato", "Termostato"));
 			listScenes.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.humi), "Humidificador"));
+					BitmapFactory.decodeResource(getResources(), R.drawable.humi), "Humidificador", "Humidificador"));
 			ScenesControllerAdapter adapter = new ScenesControllerAdapter(getActivity(), listScenes);
 			listView.setAdapter(adapter);
-
+			
 			listView.setOnItemClickListener(new OnItemClickListener(){
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Toast.makeText(getActivity(), "Catapumba.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "Hola", Toast.LENGTH_SHORT).show();
 				}
-
+				
 			});
-
 		}
 	}
 
@@ -86,8 +87,9 @@ class PlaceholderFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(
-				R.layout.fragment_menu__principal, container,
+				R.layout.fragment_fragment__tab_swipe, container,
 				false);
+		
 		return rootView;
 	}
 }

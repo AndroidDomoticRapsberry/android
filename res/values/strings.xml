@@ -23,5 +23,9 @@
     <string name="title_activity_primera_pantalla">PrimeraPantalla</string>
     <string name="tutorial">TUTORIAL</string>
     <string name="continuar">Continuar</string>
+    <string name="button">Button</string>
+    <string name="textview">TextView</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_primera_configuracion">PrimeraConfiguracion</string>
 
 </resources>

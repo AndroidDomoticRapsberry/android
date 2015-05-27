@@ -18,8 +18,6 @@ import android.os.Build;
 
 public class PrimeraPantalla extends Activity{
 
-	
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,7 +76,7 @@ public class PrimeraPantalla extends Activity{
 	}
 
 	public void cotinue(View view) {
-		Intent intent = new Intent(this, Menu_Principal.class);
+		Intent intent = new Intent(this, Login.class);
 		startActivity(intent);
 	}
 

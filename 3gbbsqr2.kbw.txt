@@ -1,0 +1,81 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#	modified:   .settings/org.eclipse.jdt.core.prefs
+#	modified:   AndroidManifest.xml
+#	modified:   bin/ADR.apk
+#	modified:   bin/AndroidManifest.xml
+#	modified:   bin/classes.dex
+#	modified:   bin/classes/com/andoberry/adr/BuildConfig.class
+#	modified:   bin/classes/com/andoberry/adr/Fragment_TabSwipe$1.class
+#	modified:   bin/classes/com/andoberry/adr/Fragment_TabSwipe$OnFragmentInteractionListener.class
+#	modified:   bin/classes/com/andoberry/adr/Fragment_TabSwipe$SectionsPagerAdapter.class
+#	modified:   bin/classes/com/andoberry/adr/Fragment_TabSwipe.class
+#	modified:   bin/classes/com/andoberry/adr/Menu_Principal$1.class
+#	modified:   bin/classes/com/andoberry/adr/Menu_Principal.class
+#	modified:   bin/classes/com/andoberry/adr/NavigationDrawerFragment$1.class
+#	modified:   bin/classes/com/andoberry/adr/NavigationDrawerFragment$2.class
+#	modified:   bin/classes/com/andoberry/adr/NavigationDrawerFragment$3.class
+#	modified:   bin/classes/com/andoberry/adr/NavigationDrawerFragment$NavigationDrawerCallbacks.class
+#	modified:   bin/classes/com/andoberry/adr/NavigationDrawerFragment.class
+#	modified:   bin/classes/com/andoberry/adr/PlaceholderFragment$1.class
+#	modified:   bin/classes/com/andoberry/adr/PlaceholderFragment.class
+#	modified:   bin/classes/com/andoberry/adr/PrimeraPantalla$PlaceholderFragment.class
+#	modified:   bin/classes/com/andoberry/adr/PrimeraPantalla.class
+#	modified:   bin/classes/com/andoberry/adr/R$array.class
+#	modified:   bin/classes/com/andoberry/adr/R$attr.class
+#	modified:   bin/classes/com/andoberry/adr/R$color.class
+#	modified:   bin/classes/com/andoberry/adr/R$dimen.class
+#	modified:   bin/classes/com/andoberry/adr/R$drawable.class
+#	modified:   bin/classes/com/andoberry/adr/R$id.class
+#	modified:   bin/classes/com/andoberry/adr/R$layout.class
+#	modified:   bin/classes/com/andoberry/adr/R$menu.class
+#	modified:   bin/classes/com/andoberry/adr/R$string.class
+#	modified:   bin/classes/com/andoberry/adr/R$style.class
+#	modified:   bin/classes/com/andoberry/adr/R$xml.class
+#	modified:   bin/classes/com/andoberry/adr/R.class
+#	modified:   bin/classes/com/andoberry/adr/SActivity$1.class
+#	modified:   bin/classes/com/andoberry/adr/SActivity$DataSyncPreferenceFragment.class
+#	modified:   bin/classes/com/andoberry/adr/SActivity$GeneralPreferenceFragment.class
+#	modified:   bin/classes/com/andoberry/adr/SActivity$NotificationPreferenceFragment.class
+#	modified:   bin/classes/com/andoberry/adr/SActivity.class
+#	modified:   bin/classes/com/andoberry/adr/ScenesController.class
+#	modified:   bin/classes/com/andoberry/adr/ScenesControllerAdapter.class
+#	modified:   bin/classes/com/andoberry/adr/Tutorial$OnFragmentInteractionListener.class
+#	modified:   bin/classes/com/andoberry/adr/Tutorial.class
+#	modified:   bin/resources.ap_
+#	modified:   gen/com/andoberry/adr/R.java
+#	modified:   res/layout/fragment_fragment__tab_swipe.xml
+#	modified:   res/layout/items.xml
+#	modified:   res/values/colors.xml
+#	modified:   res/values/strings.xml
+#	modified:   src/com/andoberry/adr/Fragment_TabSwipe.java
+#	modified:   src/com/andoberry/adr/Menu_Principal.java
+#	modified:   src/com/andoberry/adr/PlaceholderFragment.java
+#	modified:   src/com/andoberry/adr/PrimeraPantalla.java
+#	modified:   src/com/andoberry/adr/ScenesController.java
+#	modified:   src/com/andoberry/adr/ScenesControllerAdapter.java
+#
+# Untracked files:
+#	bin/classes/com/andoberry/adr/Connect.class
+#	bin/classes/com/andoberry/adr/FragmentComm.class
+#	bin/classes/com/andoberry/adr/Fragment_TabSwipe$PlaceholderFragment$1.class
+#	bin/classes/com/andoberry/adr/Fragment_TabSwipe$PlaceholderFragment$2.class
+#	bin/classes/com/andoberry/adr/Fragment_TabSwipe$PlaceholderFragment.class
+#	bin/classes/com/andoberry/adr/Login.class
+#	bin/classes/com/andoberry/adr/Menu_Principal$2.class
+#	bin/classes/com/andoberry/adr/Menu_Principal$3.class
+#	bin/classes/com/andoberry/adr/Scenes_editor$OnFragmentInteractionListener.class
+#	bin/classes/com/andoberry/adr/Scenes_editor.class
+#	res/layout/activity_login.xml
+#	res/layout/fragment_scenes_editor.xml
+#	res/menu/login.xml
+#	res/menu/primera_configuracion.xml
+#	src/com/andoberry/adr/Connect.java
+#	src/com/andoberry/adr/FragmentComm.java
+#	src/com/andoberry/adr/Login.java
+#	src/com/andoberry/adr/Scenes_editor.java
+#
+

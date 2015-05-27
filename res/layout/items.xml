@@ -12,27 +12,35 @@
             android:id="@+id/imageView1"
             android:layout_width="85dp"
             android:layout_height="85dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
             android:src="@drawable/lights" />
-
-        <Space
-            android:layout_width="50dp"
-            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/TextView03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.5"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            
             android:text="TextView" />
-
-        <Space
-            android:layout_width="79dp"
-            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/Button03"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="50dp"
             android:layout_height="85dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_marginLeft="60dp"
+            android:padding="50dp"
             android:onClick="bum" />
     </LinearLayout>
 

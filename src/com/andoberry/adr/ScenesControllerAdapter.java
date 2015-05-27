@@ -5,10 +5,15 @@ import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class ScenesControllerAdapter extends BaseAdapter{
 	private Context mContext;
@@ -34,18 +39,21 @@ public class ScenesControllerAdapter extends BaseAdapter{
 	public long getItemId(int pos) {
 		return pos;
 	}
+	
+	static int id = 1000000;
 
 	@Override
 	public View getView(int pos, View convertView, ViewGroup parent) {
 		// get selected entry
 		ScenesController entry = mListScene.get(pos);
-
+		
+	
 		// inflating list view layout if null
 		if(convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(mContext);
 			convertView = inflater.inflate(R.layout.items, null);
 		}
-
+		
 		// set avatar
 		ImageView ivAvatar = (ImageView)convertView.findViewById(R.id.imageView1);
 		ivAvatar.setImageBitmap(entry.getmImage());
@@ -53,7 +61,12 @@ public class ScenesControllerAdapter extends BaseAdapter{
 		// set name
 		TextView tvName = (TextView)convertView.findViewById(R.id.TextView03);
 		tvName.setText(entry.getmName());
-
+		
+		Button bt = (Button) convertView.findViewById(R.id.Button03);
+		//bt.setId(id+pos);
+		bt.setTag(entry.getTag());
+		//bt.setTag(id+pos);
+		
 		return convertView;
 	}
 

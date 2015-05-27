@@ -15,9 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Menu_Principal"
-            android:label="@string/app_name" 
-            android:screenOrientation="portrait">
-            
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,25 +26,33 @@
         <activity
             android:name=".Fragment_TabSwipper"
             android:label="@string/title_activity_fragment__tab_swipper"
-            android:parentActivityName=".Menu_Principal" 
-            android:screenOrientation="portrait">
+            android:parentActivityName=".Menu_Principal"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SActivity"
             android:label="@string/title_activity_s"
-            android:parentActivityName=".Menu_Principal" 
-            android:screenOrientation="portrait">
+            android:parentActivityName=".Menu_Principal"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Frag_Principal"
             android:label="@string/title_activity_frag__principal"
-            android:parentActivityName=".Menu_Principal" 
-            android:screenOrientation="portrait">
+            android:parentActivityName=".Menu_Principal"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".PrimeraPantalla"
-            android:label="@string/title_activity_primera_pantalla" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_primera_pantalla"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".PrimeraConfiguracion"
+            android:label="@string/title_activity_primera_configuracion" >
         </activity>
     </application>
 
