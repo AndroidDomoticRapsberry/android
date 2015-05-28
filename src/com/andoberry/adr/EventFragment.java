@@ -1,29 +1,22 @@
 package com.andoberry.adr;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.graphics.BitmapFactory;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
- * must implement the {@link Scenes_Config.OnFragmentInteractionListener}
+ * must implement the {@link EventFragment.OnFragmentInteractionListener}
  * interface to handle interaction events. Use the
- * {@link Scenes_Config#newInstance} factory method to create an instance of
+ * {@link EventFragment#newInstance} factory method to create an instance of
  * this fragment.
  * 
  */
-public class Scenes_Config extends Fragment {
+public class EventFragment extends Fragment {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -43,11 +36,11 @@ public class Scenes_Config extends Fragment {
 	 *            Parameter 1.
 	 * @param param2
 	 *            Parameter 2.
-	 * @return A new instance of fragment Scenes_Config.
+	 * @return A new instance of fragment EventFragment.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static Scenes_Config newInstance(String param1, String param2) {
-		Scenes_Config fragment = new Scenes_Config();
+	public static EventFragment newInstance(String param1, String param2) {
+		EventFragment fragment = new EventFragment();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
@@ -55,7 +48,7 @@ public class Scenes_Config extends Fragment {
 		return fragment;
 	}
 
-	public Scenes_Config() {
+	public EventFragment() {
 		// Required empty public constructor
 	}
 
@@ -72,42 +65,7 @@ public class Scenes_Config extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_scenes__config, container,
-				false);
-	}
-	
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		
-		ListView listView;
-		TextView tv = (TextView) view.findViewById(R.id.textView4);
-		
-		String s = mParam1;
-		switch (s){
-		case "luces":
-			listView = (ListView) view.findViewById(R.id.listView1);
-			List<ScenesController> lights = new ArrayList<ScenesController>();
-			lights.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Comedor", "Luces1")); 
-			lights.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Cosina", "Luces2")); 
-			ScenesControllerAdapter adapterL = new ScenesControllerAdapter(getActivity(), lights);
-			listView.setAdapter(adapterL);
-			tv.setText("luces");
-			break;
-		case "persianas":
-			listView = (ListView) view.findViewById(R.id.listView1);
-			List<ScenesController> persianas = new ArrayList<ScenesController>();
-			persianas.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.persiana), "Comedor", "Persiana1"));
-			persianas.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.persiana), "Dormitorio", "Persiana2")); 
-			ScenesControllerAdapter adapterP = new ScenesControllerAdapter(getActivity(), persianas);
-			listView.setAdapter(adapterP);
-			tv.setText("persianas");
-			break;
-		}
+		return inflater.inflate(R.layout.fragment_event, container, false);
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event

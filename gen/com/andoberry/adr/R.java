@@ -49,22 +49,24 @@ public final class R {
         public static final int termostato=0x7f020006;
     }
     public static final class id {
-        public static final int Button03=0x7f0b0012;
+        public static final int Button03=0x7f0b0014;
+        public static final int EditText01=0x7f0b000e;
         public static final int LinearLayout1=0x7f0b0001;
-        public static final int RelativeLayout1=0x7f0b000b;
-        public static final int TextView03=0x7f0b0011;
-        public static final int action_settings=0x7f0b0013;
+        public static final int RelativeLayout1=0x7f0b0010;
+        public static final int TextView01=0x7f0b000d;
+        public static final int TextView03=0x7f0b0013;
+        public static final int action_settings=0x7f0b0015;
         public static final int button1=0x7f0b0005;
         public static final int button2=0x7f0b000a;
         public static final int container=0x7f0b0007;
         public static final int drawer_layout=0x7f0b0006;
         public static final int editText1=0x7f0b0004;
-        public static final int imageView1=0x7f0b0010;
-        public static final int listView1=0x7f0b000d;
+        public static final int imageView1=0x7f0b000b;
+        public static final int listView1=0x7f0b0011;
         public static final int ll=0x7f0b0009;
         public static final int navigation_drawer=0x7f0b0008;
         public static final int pager=0x7f0b0000;
-        public static final int section_label=0x7f0b000e;
+        public static final int section_label=0x7f0b0012;
         public static final int textView1=0x7f0b0002;
         public static final int textView2=0x7f0b0003;
         public static final int textView3=0x7f0b000c;
@@ -75,18 +77,19 @@ public final class R {
         public static final int activity_login=0x7f030001;
         public static final int activity_menu__principal=0x7f030002;
         public static final int activity_primera_pantalla=0x7f030003;
-        public static final int fragment_fragment__tab_swipe=0x7f030004;
-        public static final int fragment_fragment__tab_swipper=0x7f030005;
-        public static final int fragment_humidificador=0x7f030006;
-        public static final int fragment_menu__principal=0x7f030007;
-        public static final int fragment_navigation_drawer=0x7f030008;
-        public static final int fragment_primera_pantalla=0x7f030009;
-        public static final int fragment_raspberry__connect=0x7f03000a;
-        public static final int fragment_scenes__config=0x7f03000b;
-        public static final int fragment_scenes_editor=0x7f03000c;
-        public static final int fragment_termostato=0x7f03000d;
-        public static final int fragment_tutorial=0x7f03000e;
-        public static final int items=0x7f03000f;
+        public static final int fragment_event=0x7f030004;
+        public static final int fragment_fragment__tab_swipe=0x7f030005;
+        public static final int fragment_fragment__tab_swipper=0x7f030006;
+        public static final int fragment_humidificador=0x7f030007;
+        public static final int fragment_menu__principal=0x7f030008;
+        public static final int fragment_navigation_drawer=0x7f030009;
+        public static final int fragment_primera_pantalla=0x7f03000a;
+        public static final int fragment_raspberry__connect=0x7f03000b;
+        public static final int fragment_scenes__config=0x7f03000c;
+        public static final int fragment_scenes_editor=0x7f03000d;
+        public static final int fragment_termostato=0x7f03000e;
+        public static final int fragment_tutorial=0x7f03000f;
+        public static final int items=0x7f030010;
     }
     public static final class menu {
         public static final int frag__principal=0x7f0a0000;

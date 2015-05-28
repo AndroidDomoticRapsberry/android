@@ -5,15 +5,11 @@ import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class ScenesControllerAdapter extends BaseAdapter{
 	private Context mContext;
@@ -65,6 +61,14 @@ public class ScenesControllerAdapter extends BaseAdapter{
 		Button bt = (Button) convertView.findViewById(R.id.Button03);
 		//bt.setId(id+pos);
 		bt.setTag(entry.getTag());
+		
+		Menu_Principal p = new Menu_Principal();
+		
+		p.check(bt);
+		
+		//check c = new check(p.encendidoL, p.encendidoP, p.encendidoT, p.encendidoH, p.subLuz1, bt);
+		//c.start();
+				
 		//bt.setTag(id+pos);
 		
 		return convertView;

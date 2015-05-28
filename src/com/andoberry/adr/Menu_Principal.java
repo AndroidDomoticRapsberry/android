@@ -11,7 +11,6 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 
@@ -31,18 +30,40 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 class check extends Thread{
-	
+
 	boolean eL; 
 	boolean eP; 
 	boolean eT; 
 	boolean eH; 
 	boolean ev1; 
-	boolean sbL1; 
-	
-	public check(Boolean eL, boolean eP, boolean eT, boolean eH, boolean sbL1){
-		
+	boolean sbL1;
+	Button b;
+
+	public check(Boolean eL, boolean eP, boolean eT, boolean eH, boolean sbL1, Button b){
+		this.eL = eL;
+		this.eP = eP;
+		this.eT = eT;
+		this.eH = eH;
+		this.sbL1 = sbL1;
+		this.b = b;
 	}
-	
+
+	@Override
+	public void run(){
+		try{
+			if (eL == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+
+			}
+			if (eL){
+				b.setBackgroundColor(Color.parseColor("#0033FF"));
+			}
+
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 }
 
 
@@ -67,7 +88,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	TextView tv;
 	String i = "patata";
 	String getData;
-	
+
 	Fragment_TabSwipe f_ts;
 
 	private final static String tac = "ListViewFrag";
@@ -78,9 +99,9 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 		SharedPreferences settings = getSharedPreferences("prefs", 0);
 		boolean firstRun = settings.getBoolean("firstRun", true);
-		
-		
-		
+
+
+
 		if ( firstRun )
 		{
 
@@ -90,7 +111,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 			SharedPreferences.Editor editor = settings.edit();			
 			editor.putBoolean("firstRun", false);
 			editor.commit();
-			
+
 		}
 
 		setContentView(R.layout.activity_menu__principal);
@@ -114,10 +135,10 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Pick an option");
 			builder.setItems(options, new DialogInterface.OnClickListener() {
-			    @Override
-			    public void onClick(DialogInterface dialog, int which) {
-			        
-			    }
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+				}
 			});
 			builder.show();
 			Toast.makeText(this, "Cata.", Toast.LENGTH_SHORT).show();
@@ -128,22 +149,34 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 			edit = false;
 		}
 	}
-	
+
 	String ip = null;
-	
+
 	@Override
 	public void onFragmentInteraction(String str) {
 		ip = str;
 	}
-	
+
 	boolean engaged = false;
-	
+
+	boolean encendidoL = false;
+	boolean encendidoP = false;
+	boolean encendidoT = false;
+	boolean encendidoH = false;
+	boolean event1 = false;
+	boolean event2 = false;
+	boolean event3 = false;
+	boolean event4 = false;
+	boolean subLuz1 = false;
+
+
+
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 
 		FragmentManager fragmentManager = getFragmentManager();
-		
+
 		switch (position) {
 		case 0:	
 			fragmentManager.beginTransaction()
@@ -244,69 +277,68 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public void check(){
-		//Menu_Principal p = new Menu_Principal();
+	public void check(Button b){
+		Menu_Principal p = new Menu_Principal();
 		
-		
-		Button b = (Button) findViewById(R.id.Button03);
-		
-		
-		//if (eL == false){
-		//	b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+		boolean eL = encendidoL; 
+		boolean eP = encendidoP; 
+		boolean eT = encendidoT; 
+		boolean eH = encendidoH; 
+		boolean ev1 = event1; 
+		boolean sbL1 = subLuz1;
+
+		if (eL == false){
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
 			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
 		}
-		//if (eL){
-	//	b.setBackgroundColor(Color.parseColor("#0033FF"));
-	//	}
-//		if (eP == false){
-//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-//		}
-//		if (eP){
-//			b.setBackgroundColor(Color.parseColor("#00FF00"));
-//		}
-//		if (eT == false){
-//			b.setBackgroundColor(Color.parseColor("#00FF00"));
-//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-//		}
-//		if (eT){
-//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-//		}
-//		if (eH == false){
-//			b.setBackgroundColor(Color.parseColor("#00FF00"));
-//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-//		}
-//		if (eH){
-//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-//		}
-//		if (sbL1 == false){
-//			b.setBackgroundColor(Color.parseColor("#00FF00"));
-//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-//		}
-//		if (sbL1){
-//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-//		}
-//	}
+		if (eL == true){
+			b.setBackgroundColor(Color.parseColor("#0033FF"));
+		}
+		if (eP == false){
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+		}
+		if (eP == true){
+			b.setBackgroundColor(Color.parseColor("#0033FF"));
+		}
+		if (eT == false){
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+		}
+		if (eT == true){
+			
+			b.setBackgroundColor(Color.parseColor("#00FF00"));
+		}
+		if (eH == false){
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+		}
+		if (eH == true){
+			
+			b.setBackgroundColor(Color.parseColor("#00FF00"));
+		}
+		if (sbL1 == false){
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+		}
+		if (sbL1 == true){
+			b.setBackgroundColor(Color.parseColor("#00FF00"));
+			
+		}
+	}
 
-	boolean encendidoL = false;
-	boolean encendidoP = false;
-	boolean encendidoT = false;
-	boolean encendidoH = false;
-	boolean event1 = false;
-	boolean event2 = false;
-	boolean event3 = false;
-	boolean event4 = false;
-	boolean subLuz1 = false;
-	
-	
-	
+
+
 	public void bum(View view) {
 		tv = (TextView) findViewById(R.id.TextView03);
 		Button b = (Button) view;
-		
+
+		//		check c = new check(encendidoL, encendidoP, encendidoT, encendidoH, subLuz1, b);
+		//		c.start();
+
 		String t = (String) b.getTag();
-		
-		
+
+
 
 		switch(t){
 		case "Luces": 
@@ -314,16 +346,14 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 			if (encendidoL == false){
 				encendidoL = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
-				//check();
 				break;
-				
+
 			}
 			if (encendidoL){
 				encendidoL = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-				//check();
 				break;
-				
+
 			}
 			break;
 		case "Persianas":
@@ -418,20 +448,20 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 		}
 
 	}
-	
+
 	@Override
 	public void onFragmentInteraction(Uri uri) {
 
-		
+
 	}
-	
+
 	@Override
 	public void onFragmentBInteraction(Bundle uri) {
 
-		
+
 	}
-	
-	
+
+
 	@Override
 	public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes){
 		
@@ -439,7 +469,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 	@Override
 	public ScenesControllerAdapter updateList(List<ScenesController> listScenes) {
-		
+
 		return null;
 	}
 
