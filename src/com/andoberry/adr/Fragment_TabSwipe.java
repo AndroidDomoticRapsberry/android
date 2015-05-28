@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 
 import android.support.annotation.Nullable;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -24,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +39,8 @@ import android.widget.Toast;
  * this fragment.
  * 
  */
-public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener {
+public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener, Scenes_Config.OnFragmentInteractionListener,
+Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionListener{
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -51,28 +54,16 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
 
-
+	TextView tv2;
 	private OnFragmentInteractionListener mListener;
+	Fragment_TabSwipe f_ts;
 
-
-
-
-	/**
-	 * Use this factory method to create a new instance of this fragment using
-	 * the provided parameters.
-	 * 
-	 * @param bundle
-	 *            Parameter 1.
-	 * @param param2
-	 *            Parameter 2.
-	 * @return A new instance of fragment Fragment_TabSwipe.
-	 */
 	static Boolean edit = false;
 
-	public static Fragment_TabSwipe newInstance(String edit2, String param2) {
+	public static Fragment_TabSwipe newInstance(String param1, String param2) {
 		Fragment_TabSwipe fragment = new Fragment_TabSwipe();
 		Bundle args = new Bundle();
-		args.putString(ARG_PARAM1, edit2);
+		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
 		fragment.setArguments(args);
 		return fragment;
@@ -90,6 +81,8 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
 	}
+
+	String o = mParam1;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,7 +121,6 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 		public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes);
 	}
 
-
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		final ActionBar actionBar = getActivity().getActionBar();
@@ -157,7 +149,7 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 		}
 
 		mViewPager.setCurrentItem(0);
-		actionBar.setSelectedNavigationItem(0);
+		actionBar.setSelectedNavigationItem(0); 
 	}
 
 	@Override
@@ -195,13 +187,8 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a PlaceholderFragment (defined as a static inner class
-			// below).
 
-
-
-			return PlaceholderFragment.newInstance(position + 1);
+			return PlaceholderFragment.newInstance(position + 1, o);
 		}
 
 		@Override
@@ -222,28 +209,41 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 			return null;
 		}
 	}
-	
-	 static boolean edit3 = edit;
+
+	static boolean edit3 = edit;
 	public static class PlaceholderFragment extends Fragment {
 
 
 		private static final String ARG_SECTION_NUMBER = "section_number";
-
+		private static final String IP_PARAMETER = "val";
+		
+		private String mParam1;
+		private String mParam2;
+		
 		/**
 		 * Returns a new instance of this fragment for the given section number.
 		 */
 
 		ListView listView;
-		
+
 		boolean edit2 = edit3;
 
-		public static PlaceholderFragment newInstance(int sectionNumber) {
+		public static PlaceholderFragment newInstance(int sectionNumber, String val) {
 			PlaceholderFragment fragment = new PlaceholderFragment();
 			Bundle args = new Bundle();
 			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+			args.putString(IP_PARAMETER, val);
 			fragment.setArguments(args);
 			return fragment;
 		}
+		
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			if (getArguments() != null) {
+				mParam1 = getArguments().getString(IP_PARAMETER);
+			}
+		}	
 
 		public PlaceholderFragment() {
 		}
@@ -259,6 +259,13 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 		@Override
 		public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 			TextView textView1 = (TextView) view.findViewById(R.id.textView3);
+			TextView tex = (TextView) view.findViewById(R.id.textView1);
+						
+			
+			//Fragment_TabSwipe f2 = Fragment_TabSwipe.newInstance(f.mParam1, f.mParam2);
+
+			tex.setText((mParam1));
+
 			int position = getArguments().getInt(ARG_SECTION_NUMBER);
 
 			textView1.setText("Editar");
@@ -270,7 +277,6 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 				List<ScenesController> listScenes = new ArrayList<ScenesController>();
 				listScenes.add(new ScenesController(
 						BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Luces", "Luces")); 
-
 				listScenes.add(new ScenesController(
 						BitmapFactory.decodeResource(getResources(), R.drawable.persiana), "Persianas", "Persianas")); //b.setTag("Persianas");
 				listScenes.add(new ScenesController(
@@ -279,26 +285,57 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 						BitmapFactory.decodeResource(getResources(), R.drawable.humi), "Humidificador", "Humidificador"));
 				ScenesControllerAdapter adapter = new ScenesControllerAdapter(getActivity(), listScenes);
 				listView.setAdapter(adapter);
+				//check();
 
 				listView.setOnItemClickListener(new OnItemClickListener(){
 
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						if (edit2){
-						Toast.makeText(getActivity(), "Es editable", Toast.LENGTH_SHORT).show();
+						FragmentManager fragmentManager = getFragmentManager();
+						switch(position){
+						case 0: 
+							Toast.makeText(getActivity(), "Luces", Toast.LENGTH_SHORT).show();
+
+							fragmentManager.beginTransaction()
+							.replace(R.id.container, Scenes_Config.newInstance("luces", null))
+							.addToBackStack(null)
+							.commit();
+
+							break;
+						case 1:
+							Toast.makeText(getActivity(), "Persianas", Toast.LENGTH_SHORT).show();
+
+							fragmentManager.beginTransaction()
+							.replace(R.id.container, Scenes_Config.newInstance("persianas", null))
+							.addToBackStack(null)
+							.commit();
+							break;
+						case 2: 
+							Toast.makeText(getActivity(), "Termostato", Toast.LENGTH_SHORT).show();
+							fragmentManager.beginTransaction()
+							.replace(R.id.container, Termostato.newInstance("termostato", null))
+							.addToBackStack(null)
+							.commit();
+							break;
+						case 3:
+							Toast.makeText(getActivity(), "Humidificador", Toast.LENGTH_SHORT).show();
+							fragmentManager.beginTransaction()
+							.replace(R.id.container, Humidificador.newInstance("humidificador", null))
+							.addToBackStack(null)
+							.commit();
+							break;
 						}
-						else{
-							Toast.makeText(getActivity(), "NOPE", Toast.LENGTH_SHORT).show();
-						}
-						
+
 					}
 
-				});	break;
-				
+				}
+
+						);	break;
+
 			case 2: 
 				listView = (ListView) view.findViewById(R.id.listView1);
-				
+
 				List<ScenesController> listEvents = new ArrayList<ScenesController>();
 				listEvents.add(new ScenesController(
 						BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Fiestuki", "Fiestuki")); 
@@ -308,27 +345,39 @@ public class Fragment_TabSwipe extends Fragment implements ActionBar.TabListener
 						BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Cena", "Cena")); 
 				ScenesControllerAdapter adapterE = new ScenesControllerAdapter(getActivity(), listEvents);
 				listView.setAdapter(adapterE);
-				
+
 				listView.setOnItemClickListener(new OnItemClickListener(){
 
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 						if (edit2){
-						Toast.makeText(getActivity(), "Es editable", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getActivity(), "Es editable", Toast.LENGTH_SHORT).show();
 						}
 						else{
 							Toast.makeText(getActivity(), "NOPE", Toast.LENGTH_SHORT).show();
 						}
-						
+
 					}
 
 				});	break;
-				
+
 			}
-			
-			
+				
 		}
+	}
+
+	
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	@Override
+	public void onFragmentBInteraction(Bundle uri) {
+		
+
 	}
 }
 

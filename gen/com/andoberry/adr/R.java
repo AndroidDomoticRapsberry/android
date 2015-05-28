@@ -53,7 +53,6 @@ public final class R {
         public static final int LinearLayout1=0x7f0b0001;
         public static final int RelativeLayout1=0x7f0b000b;
         public static final int TextView03=0x7f0b0011;
-        public static final int action_example=0x7f0b0014;
         public static final int action_settings=0x7f0b0013;
         public static final int button1=0x7f0b0005;
         public static final int button2=0x7f0b000a;
@@ -78,12 +77,16 @@ public final class R {
         public static final int activity_primera_pantalla=0x7f030003;
         public static final int fragment_fragment__tab_swipe=0x7f030004;
         public static final int fragment_fragment__tab_swipper=0x7f030005;
-        public static final int fragment_menu__principal=0x7f030006;
-        public static final int fragment_navigation_drawer=0x7f030007;
-        public static final int fragment_primera_pantalla=0x7f030008;
-        public static final int fragment_scenes_editor=0x7f030009;
-        public static final int fragment_tutorial=0x7f03000a;
-        public static final int items=0x7f03000b;
+        public static final int fragment_humidificador=0x7f030006;
+        public static final int fragment_menu__principal=0x7f030007;
+        public static final int fragment_navigation_drawer=0x7f030008;
+        public static final int fragment_primera_pantalla=0x7f030009;
+        public static final int fragment_raspberry__connect=0x7f03000a;
+        public static final int fragment_scenes__config=0x7f03000b;
+        public static final int fragment_scenes_editor=0x7f03000c;
+        public static final int fragment_termostato=0x7f03000d;
+        public static final int fragment_tutorial=0x7f03000e;
+        public static final int items=0x7f03000f;
     }
     public static final class menu {
         public static final int frag__principal=0x7f0a0000;

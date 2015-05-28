@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class Login extends Activity {
 
+	EditText et1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
 	}
 
 	@Override
@@ -35,7 +39,10 @@ public class Login extends Activity {
 	}
 	
 	public void connect(View view) {
-		Intent intent = new Intent(this, SActivity.class);
+		et1 = (EditText) findViewById(R.id.editText1);
+		String IP = et1.getText().toString();
+		Intent intent = new Intent(getBaseContext(), Menu_Principal.class);
+		intent.putExtra("send", IP);
 		startActivity(intent);
 	}
 }

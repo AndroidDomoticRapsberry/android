@@ -1,46 +1,55 @@
 package com.andoberry.adr;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.security.auth.Destroyable;
+
 
 import android.app.Activity;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Fragment;
+
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+class check extends Thread{
+	
+	boolean eL; 
+	boolean eP; 
+	boolean eT; 
+	boolean eH; 
+	boolean ev1; 
+	boolean sbL1; 
+	
+	public check(Boolean eL, boolean eP, boolean eT, boolean eH, boolean sbL1){
+		
+	}
+	
+}
+
 
 public class Menu_Principal extends Activity
 implements NavigationDrawerFragment.NavigationDrawerCallbacks, Fragment_TabSwipe.OnFragmentInteractionListener, 
-Tutorial.OnFragmentInteractionListener, FragmentComm {
+Tutorial.OnFragmentInteractionListener, FragmentComm, Raspberry_Connect.OnFragmentInteractionListener, Scenes_Config.OnFragmentInteractionListener,
+Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionListener{
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -56,8 +65,12 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 
 	ListView listView;
 	TextView tv;
+	String i = "patata";
+	String getData;
+	
+	Fragment_TabSwipe f_ts;
 
-	private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
+	private final static String tac = "ListViewFrag";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +78,19 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 
 		SharedPreferences settings = getSharedPreferences("prefs", 0);
 		boolean firstRun = settings.getBoolean("firstRun", true);
+		
+		
+		
 		if ( firstRun )
 		{
 
 			startActivity(
 					new Intent(this, PrimeraPantalla.class));
 
-			SharedPreferences.Editor editor = settings.edit();
+			SharedPreferences.Editor editor = settings.edit();			
 			editor.putBoolean("firstRun", false);
 			editor.commit();
+			
 		}
 
 		setContentView(R.layout.activity_menu__principal);
@@ -86,7 +103,6 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 		mNavigationDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));		
-
 	}
 
 	Boolean edit = false; 
@@ -100,7 +116,7 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 			builder.setItems(options, new DialogInterface.OnClickListener() {
 			    @Override
 			    public void onClick(DialogInterface dialog, int which) {
-			        // the user clicked on colors[which]
+			        
 			    }
 			});
 			builder.show();
@@ -112,18 +128,28 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 			edit = false;
 		}
 	}
-
+	
+	String ip = null;
+	
+	@Override
+	public void onFragmentInteraction(String str) {
+		ip = str;
+	}
+	
+	boolean engaged = false;
+	
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 
 		FragmentManager fragmentManager = getFragmentManager();
-
+		
 		switch (position) {
-		case 0:
+		case 0:	
 			fragmentManager.beginTransaction()
-			.replace(R.id.container, Fragment_TabSwipe.newInstance(null, null))
+			.replace(R.id.container, Fragment_TabSwipe.newInstance(i, ip))
 			.commit();
+			engaged = true;
 			break;
 		case 1:
 			new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Ir a la Web")
@@ -218,10 +244,49 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public void sendMessage(View view) {
-		Intent intent = new Intent(this, SActivity.class);
-		startActivity(intent);
-	}
+	public void check(){
+		//Menu_Principal p = new Menu_Principal();
+		
+		
+		Button b = (Button) findViewById(R.id.Button03);
+		
+		
+		//if (eL == false){
+		//	b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+		}
+		//if (eL){
+	//	b.setBackgroundColor(Color.parseColor("#0033FF"));
+	//	}
+//		if (eP == false){
+//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+//		}
+//		if (eP){
+//			b.setBackgroundColor(Color.parseColor("#00FF00"));
+//		}
+//		if (eT == false){
+//			b.setBackgroundColor(Color.parseColor("#00FF00"));
+//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+//		}
+//		if (eT){
+//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+//		}
+//		if (eH == false){
+//			b.setBackgroundColor(Color.parseColor("#00FF00"));
+//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+//		}
+//		if (eH){
+//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+//		}
+//		if (sbL1 == false){
+//			b.setBackgroundColor(Color.parseColor("#00FF00"));
+//			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
+//		}
+//		if (sbL1){
+//			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+//		}
+//	}
 
 	boolean encendidoL = false;
 	boolean encendidoP = false;
@@ -231,12 +296,17 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 	boolean event2 = false;
 	boolean event3 = false;
 	boolean event4 = false;
+	boolean subLuz1 = false;
+	
+	
 	
 	public void bum(View view) {
 		tv = (TextView) findViewById(R.id.TextView03);
 		Button b = (Button) view;
-
+		
 		String t = (String) b.getTag();
+		
+		
 
 		switch(t){
 		case "Luces": 
@@ -244,12 +314,16 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 			if (encendidoL == false){
 				encendidoL = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				//check();
 				break;
+				
 			}
 			if (encendidoL){
 				encendidoL = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				//check();
 				break;
+				
 			}
 			break;
 		case "Persianas":
@@ -304,6 +378,19 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 				break;
 			}
 			break;
+		case "Luces1": 
+			Toast.makeText(this, "subEscena1", Toast.LENGTH_SHORT).show();
+			if (subLuz1 == false){
+				subLuz1 = true;
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				break;
+			}
+			if (subLuz1){
+				subLuz1 = false; 
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				break;
+			}
+			break;
 		}
 	}
 
@@ -337,6 +424,13 @@ Tutorial.OnFragmentInteractionListener, FragmentComm {
 
 		
 	}
+	
+	@Override
+	public void onFragmentBInteraction(Bundle uri) {
+
+		
+	}
+	
 	
 	@Override
 	public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes){
