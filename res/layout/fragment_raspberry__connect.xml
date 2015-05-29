@@ -29,7 +29,7 @@
         android:layout_marginTop="56dp" >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/temperatura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="IP Raspberry: " />
@@ -45,7 +45,7 @@
         android:layout_height="match_parent" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/buttonEncender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

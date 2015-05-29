@@ -40,24 +40,30 @@ public final class R {
         public static final int navigation_drawer_width=0x7f060002;
     }
     public static final class drawable {
-        public static final int drawer_shadow=0x7f020000;
-        public static final int humi=0x7f020001;
-        public static final int ic_drawer=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int lights=0x7f020004;
-        public static final int persiana=0x7f020005;
-        public static final int termostato=0x7f020006;
+        public static final int bano=0x7f020000;
+        public static final int button_down=0x7f020001;
+        public static final int button_up=0x7f020002;
+        public static final int cocina=0x7f020003;
+        public static final int comedor=0x7f020004;
+        public static final int dormitorio=0x7f020005;
+        public static final int drawer_shadow=0x7f020006;
+        public static final int humi=0x7f020007;
+        public static final int ic_drawer=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int lights=0x7f02000a;
+        public static final int persiana=0x7f02000b;
+        public static final int termostato=0x7f02000c;
     }
     public static final class id {
-        public static final int Button03=0x7f0b0014;
+        public static final int Button03=0x7f0b0015;
         public static final int EditText01=0x7f0b000e;
         public static final int LinearLayout1=0x7f0b0001;
         public static final int RelativeLayout1=0x7f0b0010;
         public static final int TextView01=0x7f0b000d;
-        public static final int TextView03=0x7f0b0013;
-        public static final int action_settings=0x7f0b0015;
-        public static final int button1=0x7f0b0005;
+        public static final int TextView03=0x7f0b0014;
+        public static final int action_settings=0x7f0b0016;
         public static final int button2=0x7f0b000a;
+        public static final int buttonEncender=0x7f0b0005;
         public static final int container=0x7f0b0007;
         public static final int drawer_layout=0x7f0b0006;
         public static final int editText1=0x7f0b0004;
@@ -67,8 +73,9 @@ public final class R {
         public static final int navigation_drawer=0x7f0b0008;
         public static final int pager=0x7f0b0000;
         public static final int section_label=0x7f0b0012;
+        public static final int temperatura=0x7f0b0003;
         public static final int textView1=0x7f0b0002;
-        public static final int textView2=0x7f0b0003;
+        public static final int textView2=0x7f0b0013;
         public static final int textView3=0x7f0b000c;
         public static final int textView4=0x7f0b000f;
     }

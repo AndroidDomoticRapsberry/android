@@ -211,10 +211,10 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 		private static final String ARG_SECTION_NUMBER = "section_number";
 		private static final String IP_PARAMETER = "val";
-		
+
 		private String mParam1;
 		private String mParam2;
-		
+
 		/**
 		 * Returns a new instance of this fragment for the given section number.
 		 */
@@ -231,7 +231,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 			fragment.setArguments(args);
 			return fragment;
 		}
-		
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -255,11 +255,13 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 		public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 			TextView textView1 = (TextView) view.findViewById(R.id.textView3);
 			TextView tex = (TextView) view.findViewById(R.id.textView1);
-						
-			
+
+
 			//Fragment_TabSwipe f2 = Fragment_TabSwipe.newInstance(f.mParam1, f.mParam2);
 
 			tex.setText((mParam1));
+
+			final String p = "Aloha";
 
 			int position = getArguments().getInt(ARG_SECTION_NUMBER);
 
@@ -290,7 +292,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 						FragmentManager fragmentManager = getFragmentManager();
 						switch(position){
 						case 0: 
-							Toast.makeText(getActivity(), "Luces", Toast.LENGTH_SHORT).show();
+
 
 							fragmentManager.beginTransaction()
 							.replace(R.id.container, Scenes_Config.newInstance("luces", null))
@@ -299,7 +301,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 							break;
 						case 1:
-							Toast.makeText(getActivity(), "Persianas", Toast.LENGTH_SHORT).show();
+
 
 							fragmentManager.beginTransaction()
 							.replace(R.id.container, Scenes_Config.newInstance("persianas", null))
@@ -307,14 +309,14 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 							.commit();
 							break;
 						case 2: 
-							Toast.makeText(getActivity(), "Termostato", Toast.LENGTH_SHORT).show();
+
 							fragmentManager.beginTransaction()
-							.replace(R.id.container, Termostato.newInstance("termostato", null))
+							.replace(R.id.container, Termostato.newInstance(p, null))
 							.addToBackStack(null)
 							.commit();
 							break;
 						case 3:
-							Toast.makeText(getActivity(), "Humidificador", Toast.LENGTH_SHORT).show();
+
 							fragmentManager.beginTransaction()
 							.replace(R.id.container, Humidificador.newInstance("humidificador", null))
 							.addToBackStack(null)
@@ -358,20 +360,20 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 				});	break;
 
 			}
-				
+
 		}
 	}
 
-	
+
 	@Override
 	public void onFragmentInteraction(Uri uri) {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void onFragmentBInteraction(Bundle uri) {
-		
+
 
 	}
 }

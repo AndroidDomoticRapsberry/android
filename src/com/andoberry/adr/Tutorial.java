@@ -102,7 +102,7 @@ public class Tutorial extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		TextView textView2;
-		textView2 = (TextView) view.findViewById(R.id.textView2);
+		textView2 = (TextView) view.findViewById(R.id.temperatura);
 
 		textView2.setText(Html.fromHtml("<a href=" + url + ">ADR-WEB</a>"));
 		textView2.setMovementMethod(LinkMovementMethod.getInstance());

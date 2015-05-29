@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
@@ -59,14 +64,66 @@ public class Termostato extends Fragment {
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
 	}
+	
+	static boolean trmstato = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_termostato, container, false);
+		View InputView = inflater.inflate(R.layout.fragment_termostato, container, false);
+		
+		final TextView tv1 = (TextView) InputView.findViewById(R.id.textView1);
+		tv1.setText(mParam1);
+		
+		final TextView temp = (TextView) InputView.findViewById(R.id.temperatura);
+		
+		final Button bt = (Button) InputView.findViewById(R.id.buttonEncender);
+		bt.setTag("TermBt");
+		
+		bt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Button b = (Button) v;
+			   
+				if (!trmstato){
+					
+					b.setBackgroundColor(Color.parseColor("#00FF00"));
+					b.setTextColor(Color.parseColor("#000000"));
+					b.setText("ENCENDIDO");
+					temp.setText("20");
+					trmstato = true;
+				}
+				else {
+					
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					b.setTextColor(Color.parseColor("#000000"));
+					b.setText("APAGADO");
+					temp.setText("0");
+					trmstato = false; 
+				}
+				
+			}
+		});
+		
+		Menu_Principal p = new Menu_Principal();
+		
+		p.checkT(bt, temp, trmstato);
+		
+		return InputView;
 	}
 
+	
+
+	@Override
+	public void onViewCreated (View view, Bundle savedInstanceState){
+		
+	}
+	
+	
+	
 	// TODO: Rename method, update argument and hook method into UI event
 	public void onButtonPressed(Uri uri) {
 		if (mListener != null) {

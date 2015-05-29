@@ -1,14 +1,56 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.andoberry.adr.Termostato" >
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
+        android:id="@id/textView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="HOLA A TODOS PUM" />
 
-</FrameLayout>
+
+    <Button
+        android:id="@+id/buttonEncender"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:onClick="bOn"
+        android:text="APAGADO" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="0dp" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/temperatura"
+            android:text="ºC"
+            android:textColor="#0033FF"
+            android:textSize="85sp" />
+
+        <TextView
+            android:id="@+id/temperatura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="76dp"
+            android:text="20"
+            android:textColor="#0033FF"
+            android:textSize="85sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

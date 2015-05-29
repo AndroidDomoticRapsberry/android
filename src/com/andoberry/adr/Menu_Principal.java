@@ -157,19 +157,27 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 		ip = str;
 	}
 
-	boolean engaged = false;
+	//Variables para controlar los estados de las escenas generales.
+	static boolean encendidoL = false;
+	static boolean encendidoP = false;
+	static boolean encendidoT = false;
+	static boolean encendidoH = false;
 
-	boolean encendidoL = false;
-	boolean encendidoP = false;
-	boolean encendidoT = false;
-	boolean encendidoH = false;
-	boolean event1 = false;
-	boolean event2 = false;
-	boolean event3 = false;
-	boolean event4 = false;
-	boolean subLuz1 = false;
+	//Variables para controlar los estados de los eventos.
+	static boolean event1 = false;
+	static boolean event2 = false;
+	static boolean event3 = false;
+	static boolean event4 = false;
 
-
+	//Variables para controlar los estados de las subescenas.
+	//Por ejemplo, la luz de la cocina.
+	static boolean subLuz1 = false;
+	static boolean subLuz2 = false;
+	static boolean subLuz3 = false;
+	
+	//Por ejemplo, la persiana del comedor.
+	static boolean subPersiana1 = false;
+	static boolean subPersiana2 = false;
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
@@ -182,7 +190,6 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 			fragmentManager.beginTransaction()
 			.replace(R.id.container, Fragment_TabSwipe.newInstance(i, ip))
 			.commit();
-			engaged = true;
 			break;
 		case 1:
 			new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Ir a la Web")
@@ -277,153 +284,263 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
+
+	//Método para controlar el estado de los botones.
 	public void check(Button b){
-		Menu_Principal p = new Menu_Principal();
-		
+	
 		boolean eL = encendidoL; 
 		boolean eP = encendidoP; 
 		boolean eT = encendidoT; 
 		boolean eH = encendidoH; 
 		boolean ev1 = event1; 
 		boolean sbL1 = subLuz1;
+		boolean sbL2 = subLuz2;
+		boolean sbL3 = subLuz3;
+		boolean sbP1 = subPersiana1;
+		boolean sbP2 = subPersiana2;
+		
 
-		if (eL == false){
-			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-		}
-		if (eL == true){
-			b.setBackgroundColor(Color.parseColor("#0033FF"));
-		}
-		if (eP == false){
-			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-		}
-		if (eP == true){
-			b.setBackgroundColor(Color.parseColor("#0033FF"));
-		}
-		if (eT == false){
-			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-		}
-		if (eT == true){
+		String t = (String) b.getTag();
+
+		switch(t){
+		case "Luces": 
+			if (eL == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				
+			}
+			else{
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+			}
+			break;
+		case "Persianas":
+			if (eP == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+
+			}
+			else{
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+			}
+			break;
+		case "Termostato":
+			if (eT == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			}
+			else{
+
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+			}
+			break;
+		case "Humidificador":
+			if (eH == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			}
+			else{
+
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+			}
+			break;
+		case "Luces1":
+			if (sbL1 == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			}
+			else{
+				b.setBackgroundColor(Color.parseColor("#00FF00"));				
+			}
+			break;
+		case "Luces2":
+			if (sbL2 == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			}
+			else{
+				b.setBackgroundColor(Color.parseColor("#00FF00"));				
+			}
+			break;
+		case "Luces3":
+			if (sbL3 == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			}
+			else{
+				b.setBackgroundColor(Color.parseColor("#00FF00"));				
+			}
+			break;
+		case "Persiana1":
+			if (sbP1 == false){
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			}
+			else{
+				b.setBackgroundColor(Color.parseColor("#00FF00"));				
+			}
+			break;
+		case "Persiana2":
+			if (sbP2 == false) {
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			}
+			else{
+				b.setBackgroundColor(Color.parseColor("#00FF00"));				
+			}
 			
-			b.setBackgroundColor(Color.parseColor("#00FF00"));
 		}
-		if (eH == false){
-			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-		}
-		if (eH == true){
-			
-			b.setBackgroundColor(Color.parseColor("#00FF00"));
-		}
-		if (sbL1 == false){
-			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			//Toast.makeText(this, "Encendido.", Toast.LENGTH_SHORT).show();
-		}
-		if (sbL1 == true){
-			b.setBackgroundColor(Color.parseColor("#00FF00"));
-			
-		}
+		//END OF SWITCH
 	}
 
 
-
+	public void checkT(Button b, TextView t, boolean trm){
+		
+		if (!trm){
+			b.setBackgroundColor(Color.parseColor("#00FF00"));
+			b.setTextColor(Color.parseColor("#000000"));
+			b.setText("ENCENDIDO");
+			t.setText("20");
+			trm = true;
+		}
+		else{
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			b.setTextColor(Color.parseColor("#000000"));
+			b.setText("APAGADO");
+			t.setText("0");
+			trm = false; 
+		}
+		
+	}
+	
+	//Boton para controlar las diferentes escenas y eventos. 
 	public void bum(View view) {
 		tv = (TextView) findViewById(R.id.TextView03);
 		Button b = (Button) view;
 
-		//		check c = new check(encendidoL, encendidoP, encendidoT, encendidoH, subLuz1, b);
-		//		c.start();
-
 		String t = (String) b.getTag();
-
-
 
 		switch(t){
 		case "Luces": 
-			Toast.makeText(this, "Tensa Zangetsu.", Toast.LENGTH_SHORT).show();
+
 			if (encendidoL == false){
 				encendidoL = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
 				break;
 
 			}
-			if (encendidoL){
+			else{
 				encendidoL = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				break;
 
 			}
-			break;
 		case "Persianas":
-			Toast.makeText(this, "Emperor's eye.", Toast.LENGTH_SHORT).show();
+			
 			if (encendidoP == false){
 				encendidoP = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
 				break;
 			}
-			if (encendidoP){
+			else{
 				encendidoP = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				break;
 			}
-			break;
+
 		case "Termostato":
-			Toast.makeText(this, "Invisibility.", Toast.LENGTH_SHORT).show();
+			
 			if (encendidoT == false){
 				encendidoT = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
 				break;
 			}
-			if (encendidoT){
+			else{
 				encendidoT = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				break;
 			}
-			break;
+
 		case "Humidificador":
-			Toast.makeText(this, "ZONE.", Toast.LENGTH_SHORT).show();
+			
 			if (encendidoH == false){
 				encendidoH = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
 				break;
 			}
-			if (encendidoH){
+			else{
 				encendidoH = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				break;
 			}
-			break;
 		case "Fiestuki":
-			Toast.makeText(this, "FIESHTA.", Toast.LENGTH_SHORT).show();
+			
 			if (event1 == false){
 				event1 = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
 				break;
 			}
-			if (event1){
+			else{
 				event1 = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				break;
 			}
-			break;
+
 		case "Luces1": 
-			Toast.makeText(this, "subEscena1", Toast.LENGTH_SHORT).show();
+			
 			if (subLuz1 == false){
 				subLuz1 = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
 				break;
 			}
-			if (subLuz1){
+			else{
 				subLuz1 = false; 
 				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				break;
 			}
-			break;
+		case "Luces2":
+			
+			if (subLuz2 == false){
+				subLuz2 = true;
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				break;
+			}
+			else {
+				subLuz2 = false;
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				break;
+			}
+		case "Luces3": 
+			
+			if (subLuz3 == false){
+				subLuz3 = true;
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				break;
+			}
+			else {
+				subLuz3 = false;
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				break;
+			}
+		case "Persiana1":
+			
+			if (subPersiana1 == false){
+				subPersiana1 = true;
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				break;
+			}
+			else {
+				subPersiana1 = false;
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				break;
+			}
+		case "Persiana2":
+			
+			if (subPersiana2 == false){
+				subPersiana2 = true;
+				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				break;
+			}
+			else {
+				subPersiana2 = false;
+				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				break;
+			}
 		}
+		//END OF SWITCH
 	}
 
+	//Botón de tirar para atrás
 	@Override
 	public void onBackPressed() {
 
@@ -454,7 +571,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 
 	}
-
+	
 	@Override
 	public void onFragmentBInteraction(Bundle uri) {
 
@@ -464,7 +581,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 	@Override
 	public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes){
-		
+
 	}
 
 	@Override

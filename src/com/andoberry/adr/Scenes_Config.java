@@ -89,9 +89,11 @@ public class Scenes_Config extends Fragment {
 			listView = (ListView) view.findViewById(R.id.listView1);
 			List<ScenesController> lights = new ArrayList<ScenesController>();
 			lights.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Comedor", "Luces1")); 
+					BitmapFactory.decodeResource(getResources(), R.drawable.comedor), "Comedor", "Luces1")); 
 			lights.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Cosina", "Luces2")); 
+					BitmapFactory.decodeResource(getResources(), R.drawable.cocina), "Cocina", "Luces2")); 
+			lights.add(new ScenesController(
+					BitmapFactory.decodeResource(getResources(), R.drawable.bano), "Baño", "Luces3")); 
 			ScenesControllerAdapter adapterL = new ScenesControllerAdapter(getActivity(), lights);
 			listView.setAdapter(adapterL);
 			tv.setText("luces");
@@ -100,9 +102,9 @@ public class Scenes_Config extends Fragment {
 			listView = (ListView) view.findViewById(R.id.listView1);
 			List<ScenesController> persianas = new ArrayList<ScenesController>();
 			persianas.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.persiana), "Comedor", "Persiana1"));
+					BitmapFactory.decodeResource(getResources(), R.drawable.comedor), "Comedor", "Persiana1"));
 			persianas.add(new ScenesController(
-					BitmapFactory.decodeResource(getResources(), R.drawable.persiana), "Dormitorio", "Persiana2")); 
+					BitmapFactory.decodeResource(getResources(), R.drawable.dormitorio), "Dormitorio", "Persiana2")); 
 			ScenesControllerAdapter adapterP = new ScenesControllerAdapter(getActivity(), persianas);
 			listView.setAdapter(adapterP);
 			tv.setText("persianas");
