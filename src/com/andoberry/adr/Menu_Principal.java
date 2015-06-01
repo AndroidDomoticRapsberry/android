@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 public class Menu_Principal extends Activity
 implements NavigationDrawerFragment.NavigationDrawerCallbacks, Fragment_TabSwipe.OnFragmentInteractionListener, 
-Tutorial.OnFragmentInteractionListener, FragmentComm, Scenes_Config.OnFragmentInteractionListener,
+Tutorial.OnFragmentInteractionListener, Scenes_Config.OnFragmentInteractionListener,
 Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionListener{
 
 	/**
@@ -755,12 +755,6 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 		hd = trm;
 	}
 
-
-	@Override
-	public ScenesControllerAdapter updateList(List<ScenesController> listScenes) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes) {
