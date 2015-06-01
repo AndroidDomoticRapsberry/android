@@ -25,7 +25,8 @@
     <string name="continuar">Continuar</string>
     <string name="button">Button</string>
     <string name="textview">TextView</string>
-    <string name="title_activity_login">Login</string>
-    <string name="title_activity_primera_configuracion">PrimeraConfiguracion</string>
+    <string name="title_activity_login">ADR</string>
+    <string name="title_activity_primera_configuracion">Primera Configuracion</string>
+    <string name="title_activity_sign_in">Sign In</string>
 
 </resources>

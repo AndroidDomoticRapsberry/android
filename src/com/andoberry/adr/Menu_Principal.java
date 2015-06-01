@@ -1,6 +1,7 @@
 package com.andoberry.adr;
 
 
+import java.net.Socket;
 import java.util.List;
 
 
@@ -29,47 +30,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-class check extends Thread{
-
-	boolean eL; 
-	boolean eP; 
-	boolean eT; 
-	boolean eH; 
-	boolean ev1; 
-	boolean sbL1;
-	Button b;
-
-	public check(Boolean eL, boolean eP, boolean eT, boolean eH, boolean sbL1, Button b){
-		this.eL = eL;
-		this.eP = eP;
-		this.eT = eT;
-		this.eH = eH;
-		this.sbL1 = sbL1;
-		this.b = b;
-	}
-
-	@Override
-	public void run(){
-		try{
-			if (eL == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-
-			}
-			if (eL){
-				b.setBackgroundColor(Color.parseColor("#0033FF"));
-			}
-
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-
-}
-
-
 public class Menu_Principal extends Activity
 implements NavigationDrawerFragment.NavigationDrawerCallbacks, Fragment_TabSwipe.OnFragmentInteractionListener, 
-Tutorial.OnFragmentInteractionListener, FragmentComm, Raspberry_Connect.OnFragmentInteractionListener, Scenes_Config.OnFragmentInteractionListener,
+Tutorial.OnFragmentInteractionListener, FragmentComm, Scenes_Config.OnFragmentInteractionListener,
 Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionListener{
 
 	/**
@@ -90,29 +53,10 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	String getData;
 
 	Fragment_TabSwipe f_ts;
-
-	private final static String tac = "ListViewFrag";
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		SharedPreferences settings = getSharedPreferences("prefs", 0);
-		boolean firstRun = settings.getBoolean("firstRun", true);
-
-
-
-		if ( firstRun )
-		{
-
-			startActivity(
-					new Intent(this, PrimeraPantalla.class));
-
-			SharedPreferences.Editor editor = settings.edit();			
-			editor.putBoolean("firstRun", false);
-			editor.commit();
-
-		}
 
 		setContentView(R.layout.activity_menu__principal);
 
@@ -126,59 +70,72 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 				(DrawerLayout) findViewById(R.id.drawer_layout));		
 	}
 
-	Boolean edit = false; 
 	CharSequence options[] = new CharSequence[] {"Luces", "Persianas", "Termostato", "Humidificador"};
 
-
 	public void EditB(View view) {
-		if (!edit){
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Pick an option");
-			builder.setItems(options, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
 
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Pick an option");
+		builder.setItems(options, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				for (int i = 0; i < options.length; i++){
+					String opt = options[i].toString();
+					if (opt.equalsIgnoreCase("luces")){
+						FragmentManager fragmentManager = getFragmentManager();
+						fragmentManager.beginTransaction()
+						.replace(R.id.container, Tutorial.newInstance(null, null))
+						.addToBackStack(Fragment_TabSwipe.TAG)
+						.commit();
+					}
+					else {
+						if (opt.equalsIgnoreCase("persianas")){
+							FragmentManager fragmentManager = getFragmentManager();
+							fragmentManager.beginTransaction()
+							.replace(R.id.container, Fragment_TabSwipe.newInstance(null, null))
+							.addToBackStack(Fragment_TabSwipe.TAG)
+							.commit();
+						}
+					}
 				}
-			});
-			builder.show();
-			Toast.makeText(this, "Cata.", Toast.LENGTH_SHORT).show();
-			edit = true;
-		}
-		else {
-			Toast.makeText(this, "Pumba.", Toast.LENGTH_SHORT).show();
-			edit = false;
-		}
+			}
+		});
+		builder.show();		
 	}
 
 	String ip = null;
 
-	@Override
-	public void onFragmentInteraction(String str) {
-		ip = str;
-	}
 
 	//Variables para controlar los estados de las escenas generales.
-	static boolean encendidoL = false;
-	static boolean encendidoP = false;
-	static boolean encendidoT = false;
-	static boolean encendidoH = false;
+	static Boolean encendidoL = null;
+	static Boolean encendidoP = null;
+	static Boolean encendidoT = null;
+	static Boolean encendidoH = null;
 
 	//Variables para controlar los estados de los eventos.
-	static boolean event1 = false;
-	static boolean event2 = false;
-	static boolean event3 = false;
-	static boolean event4 = false;
+	static Boolean event1 = null;
+	static Boolean event2 = null;
+	static Boolean event3 = null;
+	static Boolean event4 = null;
 
 	//Variables para controlar los estados de las subescenas.
 	//Por ejemplo, la luz de la cocina.
-	static boolean subLuz1 = false;
-	static boolean subLuz2 = false;
-	static boolean subLuz3 = false;
-	
-	//Por ejemplo, la persiana del comedor.
-	static boolean subPersiana1 = false;
-	static boolean subPersiana2 = false;
+	static Boolean subLuz1 = null;
+	static Boolean subLuz2 = null;
+	static Boolean subLuz3 = null;
 
+	//Por ejemplo, la persiana del comedor.
+	static Boolean subPersiana1 = null;
+	static Boolean subPersiana2 = null;
+
+	//Por ejemplo, el termostato
+	static Boolean tr = null;
+	static Boolean hd = null;
+
+	
+	/**
+	 * Carga los fragments
+	 */
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
@@ -226,6 +183,10 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 	}
 
+	/**
+	 * Pone el titulo en el menú lateral
+	 * @param number
+	 */
 	public void onSectionAttached(int number) {
 		switch (number) {
 		case 1:
@@ -245,6 +206,9 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 
 
+	/**
+	 * Devuelve a su estado anterior la barra lateral
+	 */
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
 		//actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -253,6 +217,9 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	}
 
 
+	/**
+	 * Carga la action bar(Barra lateral).
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -267,6 +234,10 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	
+	/**
+	 * Método para el botón de settings de arriba a la derecha
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -282,129 +253,178 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	}
 
 	/**
-	 * A placeholder fragment containing a simple view.
+	 * Método para controlar el estado de los botones.
+	 * @param b
+	 * @throws InterruptedException
 	 */
+	public void check(Button b) throws InterruptedException{
+		ControlThread cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), "lectura", "Listener");
+		cT.start();
+		cT.join();
 
-	//Método para controlar el estado de los botones.
-	public void check(Button b){
-	
-		boolean eL = encendidoL; 
-		boolean eP = encendidoP; 
-		boolean eT = encendidoT; 
-		boolean eH = encendidoH; 
-		boolean ev1 = event1; 
-		boolean sbL1 = subLuz1;
-		boolean sbL2 = subLuz2;
-		boolean sbL3 = subLuz3;
-		boolean sbP1 = subPersiana1;
-		boolean sbP2 = subPersiana2;
-		
+		String l1 = cT.getbL1();
+		System.out.println("luz" + l1);
+		String l2 = cT.getbL2();
+		System.out.println("luz" + l2);
+		String l3 = cT.getbL3();
+		System.out.println(" luz " +l3);
+		String p1 = cT.getbP1();
+		String p2 = cT.getbP2();
+		String t1 = cT.getbT1();
+		String h = cT.getbH1();
+
+		//boolean eL = encendidoL; 
+		//boolean eP = encendidoP; 
+//		boolean eT = Boolean.parseBoolean(t1);
+//		boolean eH = Boolean.parseBoolean(h); 
+//		boolean ev1 = event1; 
+//		boolean sbL1 = Boolean.parseBoolean(l1);
+//		boolean sbL2 = Boolean.parseBoolean(l2);
+//		boolean sbL3 = Boolean.parseBoolean(l3);
+//		boolean sbP1 = Boolean.parseBoolean(p1);
+//		boolean sbP2 = Boolean.parseBoolean(p2);
 
 		String t = (String) b.getTag();
+		if((l1.equals("true") || l1.equals("false")) && (l2.equals("true") || l2.equals("false")) && (l3.equals("true") || l3.equals("false")) 
+				&& (p1.equals("true") || p1.equals("false"))
+				&& (p2.equals("true") || p2.equals("false"))){
+			System.out.println("Luz " + l1);
+			System.out.println("Luz " +l2);
+			System.out.println("Luz " +l3);
+			System.out.println("Aquí no");
+			switch(t){
+			case "Luces": 
+				if (l1.equals("false") && l2.equals("false") && l3.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					System.out.println("Luz1 " + l1);
+					encendidoL = false;
+					subLuz1 = encendidoL;
+					subLuz2 = encendidoL;
+					subLuz3 = encendidoL;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));
+					System.out.println("Luz1 " + l1);
+					encendidoL = true;
+					subLuz1 = encendidoL;
+					subLuz2 = encendidoL;
+					subLuz3 = encendidoL;
+					break;
+				}
 
-		switch(t){
-		case "Luces": 
-			if (eL == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-				
-			}
-			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-			}
-			break;
-		case "Persianas":
-			if (eP == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			case "Persianas":
+				if (p1.equals("false") && p2.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					encendidoP = false;
+					subPersiana1 = encendidoP;
+					subPersiana2 = encendidoP;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));
+					encendidoP = true;
+					subPersiana1 = encendidoP;
+					subPersiana2 = encendidoP;
+					break;
+				}
+			case "Termostato":
+				if (t1.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					encendidoT = false;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));
+					encendidoT = true;
+					break;
+				}
+
+			case "Humidificador":
+				if (h.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					encendidoH = false;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));
+					encendidoH = true;
+					break;
+				}
+
+			case "Luces1":
+				if (l1.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					subLuz1 = false;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));
+					subLuz1 = true;
+					break;
+				}
+
+			case "Luces2":
+				if (l2.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					subLuz2 = false;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));	
+					subLuz2 = true;
+					break;
+				}
+
+			case "Luces3":
+				if (l3.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					subLuz3 = false;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));	
+					subLuz3 = true;
+					break;
+				}
+
+			case "Persiana1":
+				if (p1.equals("false")){
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					subPersiana1 = false;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));		
+					subPersiana1 = true;
+					break;
+				}
+
+			case "Persiana2":
+				if (p2.equals("false")) {
+					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					subPersiana2 = false;
+					break;
+				}
+				else{
+					b.setBackgroundColor(Color.parseColor("#00FF00"));			
+					subPersiana2 = true;
+					break;
+				}
 
 			}
-			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-			}
-			break;
-		case "Termostato":
-			if (eT == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			}
-			else{
-
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-			}
-			break;
-		case "Humidificador":
-			if (eH == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			}
-			else{
-
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-			}
-			break;
-		case "Luces1":
-			if (sbL1 == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			}
-			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));				
-			}
-			break;
-		case "Luces2":
-			if (sbL2 == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			}
-			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));				
-			}
-			break;
-		case "Luces3":
-			if (sbL3 == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			}
-			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));				
-			}
-			break;
-		case "Persiana1":
-			if (sbP1 == false){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			}
-			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));				
-			}
-			break;
-		case "Persiana2":
-			if (sbP2 == false) {
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			}
-			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));				
-			}
-			
+			//END OF SWITCH
 		}
-		//END OF SWITCH
 	}
 
 
-	public void checkT(Button b, TextView t, boolean trm){
-		
-		if (!trm){
-			b.setBackgroundColor(Color.parseColor("#00FF00"));
-			b.setTextColor(Color.parseColor("#000000"));
-			b.setText("ENCENDIDO");
-			t.setText("20");
-			trm = true;
-		}
-		else{
-			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-			b.setTextColor(Color.parseColor("#000000"));
-			b.setText("APAGADO");
-			t.setText("0");
-			trm = false; 
-		}
-		
-	}
-	
-	//Boton para controlar las diferentes escenas y eventos. 
-	public void bum(View view) {
+
+	/**
+	 * Boton para controlar las diferentes escenas y eventos. 
+	 * @param view
+	 * @throws InterruptedException
+	 */
+	public void bum(View view) throws InterruptedException {
 		tv = (TextView) findViewById(R.id.TextView03);
 		Button b = (Button) view;
 
@@ -412,59 +432,95 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 		switch(t){
 		case "Luces": 
-
-			if (encendidoL == false){
-				encendidoL = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-				break;
-
+			String StL1 = String.valueOf(subLuz1);
+			String StL2 = String.valueOf(subLuz2);
+			String StL3 = String.valueOf(subLuz3);
+			ControlThread cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+			cT.start();
+			cT.join();
+			String perm = cT.getPermiso();
+			if (StL1.equals("false") && StL2.equals("false") && StL3.equals("false")){
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#00FF00"));
+				}
 			}
 			else{
-				encendidoL = false; 
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-				break;
+				StL1 = String.valueOf(subLuz1);
+				StL2 = String.valueOf(subLuz2);
+				StL3 = String.valueOf(subLuz3);
+
+				cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+				cT.start();
+				cT.join();
+				perm = cT.getPermiso();
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				}
 
 			}
+			break;
 		case "Persianas":
-			
-			if (encendidoP == false){
-				encendidoP = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-				break;
-			}
-			else{
-				encendidoP = false; 
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-				break;
-			}
+			String StP1 = String.valueOf(subPersiana1);
+			String StP2 = String.valueOf(subPersiana2);
+			cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StP1, StP2, "Permisos", "Persianas", "Writer");
+			cT.start();
+			cT.join();
+			perm = cT.getPermiso();
+			if (StP1.equals("false") && StP2.equals("false")){
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#00FF00"));
+				}
 
-		case "Termostato":
-			
-			if (encendidoT == false){
-				encendidoT = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-				break;
+
 			}
 			else{
-				encendidoT = false; 
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-				break;
+				StP1 = String.valueOf(subLuz1);
+				StP2 = String.valueOf(subLuz2);
+				cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StP1, StP2, "Permisos", "Persianas", "Writer");
+				cT.start();
+				cT.join();
+				perm = cT.getPermiso();
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				}
+
+
 			}
+			break;
+		case "Termostato":
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction()
+			.replace(R.id.container, Termostato.newInstance(null, null))
+			.addToBackStack(null)
+			.commit();
+			break;
+
 
 		case "Humidificador":
-			
-			if (encendidoH == false){
-				encendidoH = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
-				break;
-			}
-			else{
-				encendidoH = false; 
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-				break;
-			}
+
+			FragmentManager fManager = getFragmentManager();
+			fManager.beginTransaction()
+			.replace(R.id.container, Humidificador.newInstance(null, null))
+			.addToBackStack(null)
+			.commit();
 		case "Fiestuki":
-			
+
 			if (event1 == false){
 				event1 = true;
 				b.setBackgroundColor(Color.parseColor("#00FF00"));
@@ -477,63 +533,176 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 			}
 
 		case "Luces1": 
-			
+			StL1 = String.valueOf(subLuz1);
+			StL2 = null;
+			StL3 = null;
+			cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+			cT.start();
+			cT.join();
+			perm = cT.getPermiso();
 			if (subLuz1 == false){
-				subLuz1 = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#00FF00"));
+				}
 				break;
 			}
 			else{
-				subLuz1 = false; 
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				StL1 = String.valueOf(subLuz1);
+				StL2 = null;
+				StL3 = null;
+				cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+				cT.start();
+				cT.join();
+				perm = cT.getPermiso();
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				}
+
 				break;
 			}
 		case "Luces2":
-			
+			StL2 = String.valueOf(subLuz2);
+			StL1 = null;
+			StL3 = null;
+			cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+			cT.start();
+			cT.join();
+			perm = cT.getPermiso();
 			if (subLuz2 == false){
-				subLuz2 = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#00FF00"));
+				}
 				break;
 			}
 			else {
-				subLuz2 = false;
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				StL2 = String.valueOf(subLuz2);
+				StL1 = null;
+				StL3 = null;
+				cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+				cT.start();
+				cT.join();
+				perm = cT.getPermiso();
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				}
+
 				break;
 			}
 		case "Luces3": 
-			
+			StL3 = String.valueOf(subLuz3);
+			StL1 = null;
+			StL2 = null;
+			cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+			cT.start();
+			cT.join();
+			perm = cT.getPermiso();
 			if (subLuz3 == false){
-				subLuz3 = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#00FF00"));
+				}
 				break;
 			}
 			else {
-				subLuz3 = false;
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				StL3 = String.valueOf(subLuz3);
+				StL1 = null;
+				StL2 = null;
+				cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StL1, StL2, StL3, "Permisos", "Luces", "Writer");
+				cT.start();
+				cT.join();
+				perm = cT.getPermiso();
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				}
 				break;
 			}
 		case "Persiana1":
-			
+			StP1 = String.valueOf(subPersiana1);
+			StP2 = null;
+			cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StP1, StP2, "Permisos", "Persianas", "Writer");
+			cT.start();
+			cT.join();
+			perm = cT.getPermiso();
 			if (subPersiana1 == false){
-				subPersiana1 = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#00FF00"));
+				}
 				break;
 			}
 			else {
-				subPersiana1 = false;
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				StP1 = String.valueOf(subPersiana1);
+				StP2 = null;
+				cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StP1, StP2, "Permisos", "Persianas", "Writer");
+				cT.start();
+				cT.join();
+				perm = cT.getPermiso();
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				}
 				break;
 			}
 		case "Persiana2":
-			
+			StP2 = String.valueOf(subPersiana2);
+			StP1 = null;
+			cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StP1, StP2, "Permisos", "Persianas", "Writer");
+			cT.start();
+			cT.join();
+			perm = cT.getPermiso();
 			if (subPersiana2 == false){
-				subPersiana2 = true;
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#00FF00"));
+				}
 				break;
 			}
 			else {
-				subPersiana2 = false;
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				StP2 = String.valueOf(subPersiana2);
+				StP1 = null;
+				cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StP1, StP2, "Permisos", "Persianas", "Writer");
+				cT.start();
+				cT.join();
+				perm = cT.getPermiso();
+				if (perm.equalsIgnoreCase("vision")){
+					Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					check(b);
+					//b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				}
 				break;
 			}
 		}
@@ -571,7 +740,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 
 	}
-	
+
 	@Override
 	public void onFragmentBInteraction(Bundle uri) {
 
@@ -579,15 +748,24 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	}
 
 
-	@Override
-	public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes){
 
+	@Override
+	public void onFragmentInteraction(boolean trm) {
+		tr = trm;
+		hd = trm;
 	}
+
 
 	@Override
 	public ScenesControllerAdapter updateList(List<ScenesController> listScenes) {
-
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

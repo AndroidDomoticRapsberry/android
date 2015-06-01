@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
@@ -64,70 +65,128 @@ public class Termostato extends Fragment {
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
 	}
-	
-	static boolean trmstato = false;
+
+	static Boolean trmstato = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View InputView = inflater.inflate(R.layout.fragment_termostato, container, false);
-		
-		final TextView tv1 = (TextView) InputView.findViewById(R.id.textView1);
-		tv1.setText(mParam1);
-		
-		final TextView temp = (TextView) InputView.findViewById(R.id.temperatura);
-		
-		final Button bt = (Button) InputView.findViewById(R.id.buttonEncender);
+
+		final TextView temp = (TextView) InputView.findViewById(R.id.usuario);
+
+		final Button bt = (Button) InputView.findViewById(R.id.buttonAcceder);
 		bt.setTag("TermBt");
-		
+
 		bt.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
-				Button b = (Button) v;
-			   
-				if (!trmstato){
-					
-					b.setBackgroundColor(Color.parseColor("#00FF00"));
-					b.setTextColor(Color.parseColor("#000000"));
-					b.setText("ENCENDIDO");
-					temp.setText("20");
-					trmstato = true;
+				try {
+					Button b = (Button) v;
+					String tac = (String) b.getTag();
+					switch(tac){
+					case "TermBt":
+
+						String StT1 = String.valueOf(trmstato);
+						ControlThread cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StT1, "Permisos", "termostato", "Writer");
+						cT.start();
+						cT.join();
+						String perm = cT.getPermiso();
+						if (trmstato != null){
+							if (trmstato == false){
+								if (perm.equalsIgnoreCase("vision")){
+									Toast.makeText(getActivity(), "No tienes permisos", Toast.LENGTH_SHORT).show();
+								}
+								else {
+									b.setBackgroundColor(Color.parseColor("#00FF00"));
+									b.setTextColor(Color.parseColor("#000000"));
+									b.setText("ENCENDIDO");
+									temp.setText("20");
+									trmstato = true;
+									onButtonPressed(trmstato);
+								}
+							}
+							else {
+								StT1 = String.valueOf(trmstato);
+								cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StT1, "Permisos", "termostato", "Writer");
+								cT.start();
+								cT.join();
+								perm = cT.getPermiso();
+								if (perm.equalsIgnoreCase("vision")){
+									Toast.makeText(getActivity(), "No tienes permisos", Toast.LENGTH_SHORT).show();
+								}
+								else {
+									b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+									b.setTextColor(Color.parseColor("#000000"));
+									b.setText("APAGADO");
+									temp.setText("0");
+									trmstato = false; 
+									onButtonPressed(trmstato);
+								}
+							}
+						
+						Menu_Principal p = new Menu_Principal();
+						p.check(bt);
+						checkT(bt, temp, trmstato);
+						}
+						break;
+					}
+
+
+
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				else {
-					
-					b.setBackgroundColor(Color.parseColor("#CCCCCC"));
-					b.setTextColor(Color.parseColor("#000000"));
-					b.setText("APAGADO");
-					temp.setText("0");
-					trmstato = false; 
-				}
-				
 			}
 		});
-		
-		Menu_Principal p = new Menu_Principal();
-		
-		p.checkT(bt, temp, trmstato);
-		
 		return InputView;
 	}
 
-	
+
+	public void checkT(Button b, TextView t, boolean trm) throws InterruptedException{
+
+		ControlThread cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), "lectura", "Listener");
+		cT.start();
+		cT.join();
+
+		String T1 = cT.getbT1();
+
+		Boolean trm1 = Boolean.getBoolean(T1);
+		if (trm1 != null){
+		if (trm1 == false){
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			b.setTextColor(Color.parseColor("#000000"));
+			b.setText("APAGADO");
+			t.setText("0");
+			//			trm = true;
+		}
+		else{
+			b.setBackgroundColor(Color.parseColor("#00FF00"));			
+			b.setTextColor(Color.parseColor("#000000"));
+			b.setText("ENCENDIDO");
+			t.setText("20");
+			//trm = false; 
+		}
+		}
+		//return trm;
+
+	}
+
 
 	@Override
 	public void onViewCreated (View view, Bundle savedInstanceState){
-		
+
 	}
-	
-	
-	
+
+
+
 	// TODO: Rename method, update argument and hook method into UI event
-	public void onButtonPressed(Uri uri) {
+	public void onButtonPressed(boolean trm) {
 		if (mListener != null) {
-			mListener.onFragmentInteraction(uri);
+			mListener.onFragmentInteraction(trm);
 		}
 	}
 
@@ -160,6 +219,7 @@ public class Termostato extends Fragment {
 	public interface OnFragmentInteractionListener {
 		// TODO: Update argument type and name
 		public void onFragmentInteraction(Uri uri);
+		public void onFragmentInteraction(boolean trm);
 	}
 
 }

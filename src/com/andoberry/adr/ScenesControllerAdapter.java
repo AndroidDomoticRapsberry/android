@@ -14,7 +14,12 @@ import android.widget.TextView;
 public class ScenesControllerAdapter extends BaseAdapter{
 	private Context mContext;
 	private List<ScenesController> mListScene;
+	private Button bt;
 
+	public ScenesControllerAdapter(){
+		
+	}
+	
 	public ScenesControllerAdapter(Context context, List<ScenesController> list) {
 		mContext = context;
 		mListScene = list;
@@ -36,6 +41,14 @@ public class ScenesControllerAdapter extends BaseAdapter{
 		return pos;
 	}
 	
+	public Button getButton(){
+		return bt;
+	}
+	
+	public void setButton(Button bt){
+		this.bt = bt;
+	}
+		
 	static int id = 1000000;
 
 	@Override
@@ -58,20 +71,23 @@ public class ScenesControllerAdapter extends BaseAdapter{
 		TextView tvName = (TextView)convertView.findViewById(R.id.TextView03);
 		tvName.setText(entry.getmName());
 		
+		
+		// set button
 		Button bt = (Button) convertView.findViewById(R.id.Button03);
-		//bt.setId(id+pos);
+		
 		bt.setTag(entry.getTag());
 		
 		Menu_Principal p = new Menu_Principal();
 		
-		p.check(bt);
+		try {
+			p.check(bt);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		//check c = new check(p.encendidoL, p.encendidoP, p.encendidoT, p.encendidoH, p.subLuz1, bt);
-		//c.start();
-				
-		//bt.setTag(id+pos);
 		
 		return convertView;
 	}
-
+	
 }

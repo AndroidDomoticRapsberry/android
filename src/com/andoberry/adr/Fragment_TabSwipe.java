@@ -248,18 +248,16 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_fragment__tab_swipe,
 					container, false);
+			TextView tex = (TextView) rootView.findViewById(R.id.textView1);
+			tex.setText((mParam1));
 			return rootView;
 		}
 
 		@Override
 		public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 			TextView textView1 = (TextView) view.findViewById(R.id.textView3);
-			TextView tex = (TextView) view.findViewById(R.id.textView1);
-
-
+			
 			//Fragment_TabSwipe f2 = Fragment_TabSwipe.newInstance(f.mParam1, f.mParam2);
-
-			tex.setText((mParam1));
 
 			final String p = "Aloha";
 
@@ -373,9 +371,16 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 	@Override
 	public void onFragmentBInteraction(Bundle uri) {
-
-
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void onFragmentInteraction(boolean trm) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
 

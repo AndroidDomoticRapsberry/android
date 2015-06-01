@@ -6,12 +6,6 @@
     android:orientation="vertical"
     tools:context="com.andoberry.adr.Scenes_Config" >
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
-
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"

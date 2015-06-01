@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
@@ -60,19 +65,117 @@ public class Humidificador extends Fragment {
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
 	}
-
+	
+	static Boolean humidi = null;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_humidificador, container,
-				false);
+		View InputView = inflater.inflate(R.layout.fragment_humidificador, container, false);
+		
+		final TextView temp = (TextView) InputView.findViewById(R.id.usuario);
+
+		final Button bt = (Button) InputView.findViewById(R.id.buttonAcceder);
+		bt.setTag("TermBt");
+
+		bt.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					Button b = (Button) v;
+					String tac = (String) b.getTag();
+					Menu_Principal p = new Menu_Principal();
+					switch(tac){
+					case "TermBt":
+						String StH1 = String.valueOf(humidi);
+						ControlThread cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StH1, "Permisos", "humidificador", "Writer");
+						cT.start();
+						cT.join();
+						String perm = cT.getPermiso();
+						if (humidi == false){
+							if (perm.equalsIgnoreCase("vision")){
+								Toast.makeText(getActivity(), "No tienes permisos", Toast.LENGTH_SHORT).show();
+							}
+							else {
+							b.setBackgroundColor(Color.parseColor("#00FF00"));
+							b.setTextColor(Color.parseColor("#000000"));
+							b.setText("ENCENDIDO");
+							temp.setText("35");
+							humidi = true;
+							onButtonPressed(humidi);
+							}
+						}
+						else {
+							StH1 = String.valueOf(humidi);
+							cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), StH1, "Permisos", "Humidificador", "Writer");
+							cT.start();
+							cT.join();
+							perm = cT.getPermiso();
+							if (perm.equalsIgnoreCase("vision")){
+								Toast.makeText(getActivity(), "No tienes permisos", Toast.LENGTH_SHORT).show();
+							}
+							else {
+							b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+							b.setTextColor(Color.parseColor("#000000"));
+							b.setText("APAGADO");
+							temp.setText("0");
+							humidi = false; 
+							onButtonPressed(humidi);
+							}
+						}
+						
+						p.check(bt);
+						checkT(bt, temp, humidi);
+						break;
+					}
+
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
+
+		
+		return InputView;
+	}
+	
+	public void checkT(Button b, TextView t, boolean hmd) throws InterruptedException{
+		
+		ControlThread cT = new ControlThread(SocketHandler.getip(), SocketHandler.getPort(), SocketHandler.getSocket(), "lectura", "Listener");
+		cT.start();
+		cT.join();
+		
+		String H1 = cT.getbH1();
+		
+		boolean hmd1 = Boolean.getBoolean(H1);
+
+		if (hmd1 == false){
+
+			b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+			b.setTextColor(Color.parseColor("#000000"));
+			b.setText("APAGADO");
+			t.setText("0");
+			//			trm = true;
+		}
+		else{
+			b.setBackgroundColor(Color.parseColor("#00FF00"));			
+			b.setTextColor(Color.parseColor("#000000"));
+			b.setText("ENCENDIDO");
+			t.setText("20");
+			//trm = false; 
+		}
+
+		//return trm;
+
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
-	public void onButtonPressed(Uri uri) {
+	public void onButtonPressed(boolean humidi2) {
 		if (mListener != null) {
-			mListener.onFragmentInteraction(uri);
+			mListener.onFragmentInteraction(humidi2);
 		}
 	}
 
@@ -104,7 +207,7 @@ public class Humidificador extends Fragment {
 	 */
 	public interface OnFragmentInteractionListener {
 		// TODO: Update argument type and name
-		public void onFragmentInteraction(Uri uri);
+		public void onFragmentInteraction(boolean humidi2);
 
 		void onFragmentBInteraction(Bundle uri);
 	}

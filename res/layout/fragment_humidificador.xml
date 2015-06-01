@@ -1,14 +1,51 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.andoberry.adr.Humidificador" >
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="180dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="0.35" >
 
-</FrameLayout>
+        <Button
+            android:id="@+id/buttonAcceder"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/usuario"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="71dp"
+            android:onClick="bOn"
+            android:text="APAGADO" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonAcceder"
+            android:layout_alignLeft="@+id/buttonAcceder"
+            android:layout_marginLeft="63dp"
+            android:text="%"
+            android:textColor="#0033FF"
+            android:textSize="85sp" />
+
+        <TextView
+            android:id="@+id/usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/buttonAcceder"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="56dp"
+            android:text="20"
+            android:textColor="#0033FF"
+            android:textSize="85sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

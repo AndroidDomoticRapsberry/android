@@ -8,12 +8,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
@@ -79,10 +83,9 @@ public class Scenes_Config extends Fragment {
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
+
 		ListView listView;
-		TextView tv = (TextView) view.findViewById(R.id.textView4);
-		
+
 		String s = mParam1;
 		switch (s){
 		case "luces":
@@ -96,7 +99,7 @@ public class Scenes_Config extends Fragment {
 					BitmapFactory.decodeResource(getResources(), R.drawable.bano), "Baño", "Luces3")); 
 			ScenesControllerAdapter adapterL = new ScenesControllerAdapter(getActivity(), lights);
 			listView.setAdapter(adapterL);
-			tv.setText("luces");
+
 			break;
 		case "persianas":
 			listView = (ListView) view.findViewById(R.id.listView1);
@@ -107,7 +110,7 @@ public class Scenes_Config extends Fragment {
 					BitmapFactory.decodeResource(getResources(), R.drawable.dormitorio), "Dormitorio", "Persiana2")); 
 			ScenesControllerAdapter adapterP = new ScenesControllerAdapter(getActivity(), persianas);
 			listView.setAdapter(adapterP);
-			tv.setText("persianas");
+
 			break;
 		}
 	}
