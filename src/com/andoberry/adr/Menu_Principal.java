@@ -75,7 +75,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	public void EditB(View view) {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Pick an option");
+		builder.setTitle("Escoge una opción");
 		builder.setItems(options, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -269,76 +269,87 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 		switch(t){
 		case "Luces": 
 			if (l1.equals("false") && l2.equals("false") && l3.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
 				System.out.println("Luz1 " + l1);
 				encendidoL = false;
 				subLuz1 = encendidoL;
 				subLuz2 = encendidoL;
 				subLuz3 = encendidoL;
+				b.setText("");
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				b.setBackgroundResource(R.drawable.buttonshape2);
 				System.out.println("Luz1 " + l1);
 				encendidoL = true;
 				subLuz1 = encendidoL;
 				subLuz2 = encendidoL;
 				subLuz3 = encendidoL;
+				b.setText("");
 				break;
 			}
 
 		case "Persianas":
 			if (p1.equals("false") && p2.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
 				encendidoP = false;
 				subPersiana1 = encendidoP;
 				subPersiana2 = encendidoP;
+				b.setText("");
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				b.setBackgroundResource(R.drawable.buttonshape2);
 				encendidoP = true;
 				subPersiana1 = encendidoP;
 				subPersiana2 = encendidoP;
+				b.setText("");
 				break;
 			}
 		case "Termostato":
 			if (t1.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
+				b.setText("");
 				encendidoT = false;
 				if(tv!= null){
-					b.setText("APAGADO"); 
+					b.setBackgroundResource(R.drawable.btermoff);
+ 
 					tv.setText("0");
 				}
-				
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				b.setBackgroundResource(R.drawable.buttonshape2);
+				b.setText("");
 				encendidoT = true;
 				if(tv!= null){
-					b.setText("ENCENDIDO"); 
+					b.setBackgroundResource(R.drawable.btermon);
+					
 					tv.setText("20");
 				}
-				
+
 				break;
 			}
 
 		case "Humidificador":
 			if (h.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
+				b.setText("");
 				encendidoH = false;
 				if(tv!= null){
-					b.setText("APAGADO"); 
+					b.setBackgroundResource(R.drawable.bhumioff);
+					
 					tv.setText("0");
 				}
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				b.setBackgroundResource(R.drawable.buttonshape2);
+				b.setText("");
 				encendidoH = true;
 				if(tv!= null){
-					b.setText("ENCENDIDO"); 
+					b.setBackgroundResource(R.drawable.bhumion);
+
 					tv.setText("20");
 				}
 				break;
@@ -346,61 +357,71 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 		case "Luces1":
 			if (l1.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
 				subLuz1 = false;
+				b.setText("");
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));
+				b.setBackgroundResource(R.drawable.buttonshape2);
 				subLuz1 = true;
+				b.setText("");
 				break;
 			}
 
 		case "Luces2":
 			if (l2.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
 				subLuz2 = false;
+				b.setText("");
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));	
+				b.setBackgroundResource(R.drawable.buttonshape2);
 				subLuz2 = true;
+				b.setText("");
 				break;
 			}
 
 		case "Luces3":
 			if (l3.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
 				subLuz3 = false;
+				b.setText("");
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));	
+				b.setBackgroundResource(R.drawable.buttonshape2);	
 				subLuz3 = true;
+				b.setText("");
 				break;
 			}
 
 		case "Persiana1":
 			if (p1.equals("false")){
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
 				subPersiana1 = false;
+				b.setText("");
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));		
+				b.setBackgroundResource(R.drawable.buttonshape2);		
 				subPersiana1 = true;
+				b.setText("");
 				break;
 			}
 
 		case "Persiana2":
 			if (p2.equals("false")) {
-				b.setBackgroundColor(Color.parseColor("#CCCCCC"));
+				b.setBackgroundResource(R.drawable.buttonshape);
 				subPersiana2 = false;
+				b.setText("");
 				break;
 			}
 			else{
-				b.setBackgroundColor(Color.parseColor("#00FF00"));			
+				b.setBackgroundResource(R.drawable.buttonshape2);		
 				subPersiana2 = true;
+				b.setText("");
 				break;
 			}
 		}

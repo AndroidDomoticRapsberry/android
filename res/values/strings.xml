@@ -27,5 +27,13 @@
     <string name="title_activity_login">ADR</string>
     <string name="title_activity_primera_configuracion">Primera Configuracion</string>
     <string name="title_activity_sign_in">Sign In</string>
+    <string name="conectar_raspberry">Conectar Raspberry</string>
+    <string name="ip_raspberry_">"IP Raspberry: "</string>
+    <string name="conectar">Conectar</string>
+    <string name="sign_in">Sign In</string>
+    <string name="usuario_">"Usuario: "</string>
+    <string name="contrase_a_">"Contraseña "</string>
+    <string name="entrar">Entrar</string>
+    <string name="presione_el_bot_n_m_s_abajo_para_continuar">Presione el botón más abajo para continuar</string>
 
 </resources>

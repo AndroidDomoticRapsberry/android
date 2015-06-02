@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/usuario"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="71dp"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/buttonshape"
             android:onClick="bOn"
             android:text="APAGADO" />
 
@@ -28,20 +29,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/buttonAcceder"
-            android:layout_alignLeft="@+id/buttonAcceder"
-            android:layout_marginLeft="63dp"
+            android:layout_alignRight="@+id/buttonAcceder"
+            android:layout_marginRight="66dp"
             android:text="%"
             android:textColor="#0033FF"
             android:textSize="85sp" />
 
         <TextView
-            android:id="@+id/usuario"
+             android:id="@+id/usuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/buttonAcceder"
-            android:layout_marginRight="28dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="106dp"
+            android:layout_toLeftOf="@+id/textView2"
             android:text="0"
             android:textColor="#0033FF"
             android:textSize="85sp" />

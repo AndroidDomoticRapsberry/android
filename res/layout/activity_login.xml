@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Conectar Raspberry"
+            android:text="@string/conectar_raspberry"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -36,7 +36,7 @@
             android:id="@+id/usuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IP Raspberry: " />
+            android:text="@string/ip_raspberry_" />
 
         <EditText
             android:id="@+id/editText2"
@@ -49,17 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/buttonAcceder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="17dp"
-            android:text="Conectar"
-            android:onClick="connect" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -68,6 +57,17 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="25dp"
              />
+
+        <Button
+            android:id="@+id/buttonAcceder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/buttonshape"
+            android:onClick="connect"
+            android:text="@string/conectar" />
 
     </RelativeLayout>
 

@@ -41,18 +41,24 @@ public final class R {
     }
     public static final class drawable {
         public static final int bano=0x7f020000;
-        public static final int button_down=0x7f020001;
-        public static final int button_up=0x7f020002;
-        public static final int cocina=0x7f020003;
-        public static final int comedor=0x7f020004;
-        public static final int dormitorio=0x7f020005;
-        public static final int drawer_shadow=0x7f020006;
-        public static final int humi=0x7f020007;
-        public static final int ic_drawer=0x7f020008;
-        public static final int ic_launcher=0x7f020009;
-        public static final int lights=0x7f02000a;
-        public static final int persiana=0x7f02000b;
-        public static final int termostato=0x7f02000c;
+        public static final int bhumioff=0x7f020001;
+        public static final int bhumion=0x7f020002;
+        public static final int btermoff=0x7f020003;
+        public static final int btermon=0x7f020004;
+        public static final int button_down=0x7f020005;
+        public static final int button_up=0x7f020006;
+        public static final int buttonshape=0x7f020007;
+        public static final int buttonshape2=0x7f020008;
+        public static final int cocina=0x7f020009;
+        public static final int comedor=0x7f02000a;
+        public static final int dormitorio=0x7f02000b;
+        public static final int drawer_shadow=0x7f02000c;
+        public static final int humi=0x7f02000d;
+        public static final int ic_drawer=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int lights=0x7f020010;
+        public static final int persiana=0x7f020011;
+        public static final int termostato=0x7f020012;
     }
     public static final class id {
         public static final int Button03=0x7f0b0017;
@@ -61,7 +67,7 @@ public final class R {
         public static final int TextView03=0x7f0b0016;
         public static final int action_settings=0x7f0b0018;
         public static final int button2=0x7f0b000b;
-        public static final int buttonAcceder=0x7f0b0005;
+        public static final int buttonAcceder=0x7f0b0006;
         public static final int container=0x7f0b0008;
         public static final int contrasena=0x7f0b000e;
         public static final int drawer_layout=0x7f0b0007;
@@ -74,7 +80,7 @@ public final class R {
         public static final int pager=0x7f0b0000;
         public static final int section_label=0x7f0b0012;
         public static final int textView1=0x7f0b0002;
-        public static final int textView2=0x7f0b0006;
+        public static final int textView2=0x7f0b0005;
         public static final int textView3=0x7f0b0010;
         public static final int textView4=0x7f0b0013;
         public static final int tv1=0x7f0b000c;
@@ -111,14 +117,14 @@ public final class R {
         public static final int sign_in=0x7f0a0007;
     }
     public static final class string {
-        public static final int Change_rasp=0x7f07002c;
+        public static final int Change_rasp=0x7f070034;
         /**   Change user 
          */
-        public static final int Change_user=0x7f070029;
+        public static final int Change_user=0x7f070031;
         public static final int Escenas=0x7f070005;
         public static final int Eventos=0x7f070006;
-        public static final int Header_rasp=0x7f07002b;
-        public static final int Header_user=0x7f07002a;
+        public static final int Header_rasp=0x7f070033;
+        public static final int Header_user=0x7f070032;
         public static final int Help=0x7f070003;
         public static final int Home=0x7f070001;
         public static final int Settings=0x7f070004;
@@ -131,40 +137,48 @@ public final class R {
         public static final int action_settings=0x7f07000a;
         public static final int app_name=0x7f070000;
         public static final int button=0x7f070015;
+        public static final int conectar=0x7f07001c;
+        public static final int conectar_raspberry=0x7f07001a;
         public static final int continuar=0x7f070014;
+        public static final int contrase_a_=0x7f07001f;
+        public static final int entrar=0x7f070020;
         public static final int hello_world=0x7f07000c;
+        public static final int ip_raspberry_=0x7f07001b;
         public static final int navigation_drawer_close=0x7f070008;
         public static final int navigation_drawer_open=0x7f070007;
-        public static final int pref_default_display_name=0x7f07001f;
-        public static final int pref_description_social_recommendations=0x7f07001d;
+        public static final int pref_default_display_name=0x7f070027;
+        public static final int pref_description_social_recommendations=0x7f070025;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f070021;
+        public static final int pref_header_data_sync=0x7f070029;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f07001b;
+        public static final int pref_header_general=0x7f070023;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f070024;
-        public static final int pref_ringtone_silent=0x7f070027;
-        public static final int pref_title_add_friends_to_messages=0x7f070020;
-        public static final int pref_title_display_name=0x7f07001e;
-        public static final int pref_title_new_message_notifications=0x7f070025;
-        public static final int pref_title_ringtone=0x7f070026;
-        public static final int pref_title_social_recommendations=0x7f07001c;
-        public static final int pref_title_sync_frequency=0x7f070022;
-        public static final int pref_title_system_sync_settings=0x7f070023;
-        public static final int pref_title_vibrate=0x7f070028;
+        public static final int pref_header_notifications=0x7f07002c;
+        public static final int pref_ringtone_silent=0x7f07002f;
+        public static final int pref_title_add_friends_to_messages=0x7f070028;
+        public static final int pref_title_display_name=0x7f070026;
+        public static final int pref_title_new_message_notifications=0x7f07002d;
+        public static final int pref_title_ringtone=0x7f07002e;
+        public static final int pref_title_social_recommendations=0x7f070024;
+        public static final int pref_title_sync_frequency=0x7f07002a;
+        public static final int pref_title_system_sync_settings=0x7f07002b;
+        public static final int pref_title_vibrate=0x7f070030;
+        public static final int presione_el_bot_n_m_s_abajo_para_continuar=0x7f070021;
+        public static final int sign_in=0x7f07001d;
         public static final int textview=0x7f070016;
         public static final int title_activity_frag__principal=0x7f07000d;
         public static final int title_activity_fragment__tab_swipper=0x7f07000b;
         public static final int title_activity_login=0x7f070017;
         public static final int title_activity_primera_configuracion=0x7f070018;
         public static final int title_activity_primera_pantalla=0x7f070012;
-        public static final int title_activity_s=0x7f07001a;
+        public static final int title_activity_s=0x7f070022;
         public static final int title_activity_sign_in=0x7f070019;
         public static final int tutorial=0x7f070013;
+        public static final int usuario_=0x7f07001e;
     }
     public static final class style {
         /** 
