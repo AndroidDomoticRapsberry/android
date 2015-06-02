@@ -92,7 +92,6 @@ public class Login extends Activity {
 		else {
 			tv.setText("");
 			Intent intent = new Intent(getBaseContext(), SignIn.class);
-			intent.putExtra("send", IP);
 			startActivity(intent);	
 		}
 	}

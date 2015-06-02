@@ -82,7 +82,7 @@ public class ClientThread extends Thread{
 			InetAddress serverAddr = InetAddress.getByName(ip);
 			System.out.println("Creating Socket");
 			soc = new Socket();
-			soc.connect(new InetSocketAddress(serverAddr, serverport), 1000);
+			soc.connect(new InetSocketAddress(serverAddr, serverport), 8000);
 
 			System.out.println("Socket Created");
 

@@ -88,7 +88,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
-	public void onButtonPressed(List<ScenesController> uri) {
+	public void onButtonPressed(Uri uri) {
 		if (mListener != null) {
 			mListener.onFragmentTabSwipeInteraction(uri);
 		}
@@ -113,7 +113,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 	public interface OnFragmentInteractionListener {
 		// TODO: Update argument type and name
-		public void onFragmentTabSwipeInteraction(List<ScenesController> listScenes);
+		public void onFragmentTabSwipeInteraction(Uri uri);
 	}
 
 	@Override
@@ -333,7 +333,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 				List<ScenesController> listEvents = new ArrayList<ScenesController>();
 				listEvents.add(new ScenesController(
-						BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Fiestuki", "Fiestuki")); 
+						BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Fiesta", "Fiesta")); 
 				listEvents.add(new ScenesController(
 						BitmapFactory.decodeResource(getResources(), R.drawable.lights), "Dormir", "Dormir")); 
 				listEvents.add(new ScenesController(
@@ -346,12 +346,7 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						if (edit2){
-							Toast.makeText(getActivity(), "Es editable", Toast.LENGTH_SHORT).show();
-						}
-						else{
-							Toast.makeText(getActivity(), "NOPE", Toast.LENGTH_SHORT).show();
-						}
+						Toast.makeText(getActivity(), "No está implementado", Toast.LENGTH_SHORT).show();
 
 					}
 
@@ -377,6 +372,12 @@ Termostato.OnFragmentInteractionListener, Humidificador.OnFragmentInteractionLis
 
 	@Override
 	public void onFragmentInteraction(boolean trm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFragmentInteraction(TextView temp) {
 		// TODO Auto-generated method stub
 		
 	}

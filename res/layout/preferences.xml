@@ -1,9 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <PreferenceCategory
+     <PreferenceCategory
         android:title="Usuario">
         <PreferenceScreen
-            android:title="@string/Change_user">
+            android:title="@string/Header_user"
+            android:summary="@string/Change_user">
             <intent android:targetPackage="com.andoberry.adr"
                 	android:targetClass="com.andoberry.adr.SignIn" />
         </PreferenceScreen>
@@ -12,7 +13,8 @@
      <PreferenceCategory
         android:title="Raspberry">
         <PreferenceScreen
-            android:title="@string/Change_rasp">
+            android:title="@string/Header_rasp"
+            android:summary="@string/Change_rasp">
             <intent android:targetPackage="com.andoberry.adr"
                 	android:targetClass="com.andoberry.adr.Login" />
         </PreferenceScreen>
